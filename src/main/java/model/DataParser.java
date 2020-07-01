@@ -4,27 +4,27 @@ import java.util.List;
 
 public class DataParser {
 
-	private List <Persons> persons;
-	private List <Firestations> firestations;
-	private List <Medicalrecords> medicalrecords;
+	private List <Person> persons;
+	private List <Firestation> firestations;
+	private List <Medicalrecord> medicalrecords;
 	
 	
-	public List<Persons> getPersons() {
+	public List<Person> getPersons() {
 		return persons;
 	}
-	public void setPersons(List<Persons> persons) {
+	public void setPersons(List<Person> persons) {
 		this.persons = persons;
 	}
-	public List<Firestations> getFirestations() {
+	public List<Firestation> getFirestations() {
 		return firestations;
 	}
-	public void setFirestations(List<Firestations> firestations) {
+	public void setFirestations(List<Firestation> firestations) {
 		this.firestations = firestations;
 	}
-	public List<Medicalrecords> getMedicalrecords() {
+	public List<Medicalrecord> getMedicalrecords() {
 		return medicalrecords;
 	}
-	public void setMedicalrecords(List<Medicalrecords> medicalrecords) {
+	public void setMedicalrecords(List<Medicalrecord> medicalrecords) {
 		this.medicalrecords = medicalrecords;
 	}
 		

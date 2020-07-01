@@ -18,13 +18,23 @@ import model.DataParser;
 public class ReadJsonFileTest {
 
 	@Test
-	void getDataFromFile() throws JsonParseException, JsonMappingException, IOException {
+	void getFirstNameFromFile() throws JsonParseException, JsonMappingException, IOException {
 		
 		InputStream is = new FileInputStream("dataTest.json");
 		ObjectMapper mapper = new ObjectMapper();
 		DataParser data = mapper.readValue(is, DataParser.class);
 			
 		assertEquals("John", data.getPersons().get(0).getFirstName());
+	}
+	
+	@Test
+	void getFirestationFromFile() throws JsonParseException, JsonMappingException, IOException {
+		
+		InputStream is = new FileInputStream("dataTest.json");
+		ObjectMapper mapper = new ObjectMapper();
+		DataParser data = mapper.readValue(is, DataParser.class);
+			
+		assertEquals("3", data.getFirestations().get(0).getStation());
 	}
  
 }

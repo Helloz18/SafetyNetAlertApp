@@ -2,63 +2,35 @@ package parser;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.DataParser;
-import model.Firestations;
-import model.Medicalrecords;
-import model.Persons;
 
+/**
+ * 
+ * This class will read a Json file.
+ */
 public class ReadJsonFile implements IDataReader {
 
-	private InputStream is;
+	
 	private ObjectMapper mapper = new ObjectMapper();
-	private DataParser data;
-	private List<Persons> listPersons;
-	private List<Firestations> listFirestations;
-	private List<Medicalrecords> listMedicalrecords;
-	
-	
+/**
+ * This method is used to read a JSON file with the ObjectMapper class 
+ * from jackson dependency. This dependency comes with springBoot-starter-web.
+ * @return data
+ */
 	@Override
-	public List<Persons> readPersons() {
+	public DataParser readData() {
+		DataParser data = null;
+		InputStream is;
 		try {
 			is = new FileInputStream("data.json");
 			data = mapper.readValue(is, DataParser.class);
-			listPersons = data.getPersons();
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return listPersons;
+		return data;
 	}
-
-	@Override
-	public List<Firestations> readFirestations() {
-		try {
-			is = new FileInputStream("data.json");
-			data = mapper.readValue(is, DataParser.class);
-			listFirestations = data.getFirestations();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return listFirestations;
-}
-
-	@Override
-	public List<Medicalrecords> readMedicalrecords() {
-		try {
-			is = new FileInputStream("data.json");
-			data = mapper.readValue(is, DataParser.class);
-			listMedicalrecords = data.getMedicalrecords();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return listMedicalrecords;
-
-	}
-	
 }

@@ -1,16 +1,13 @@
 package parser;
-import java.util.List;
 
-import model.Firestations;
-import model.Medicalrecords;
-import model.Persons;
+import model.DataParser;
 
 
 public interface IDataReader {
-
-	List<Persons> readPersons();
+/**
+ * 
+ * DataParser is a simple Java Object with getters and setters.
+ */
+	DataParser readData();	
 	
-	List<Firestations> readFirestations();
-	
-	List<Medicalrecords> readMedicalrecords();
 }
