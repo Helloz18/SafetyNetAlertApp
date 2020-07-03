@@ -2,7 +2,7 @@ package dao;
 
 import java.util.List;
 
-public interface Dao <Model> {
+public interface InterfaceDAO <Model> {
 
 	    List<Model> findAll();
 

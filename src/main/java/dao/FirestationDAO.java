@@ -6,7 +6,7 @@ import java.util.List;
 import model.Firestation;
 import parser.ReadJsonFile;
 
-public class FirestationDAO implements Dao<Firestation> {
+public class FirestationDAO implements InterfaceDAO<Firestation> {
 
 	private ReadJsonFile read = new ReadJsonFile();
 	

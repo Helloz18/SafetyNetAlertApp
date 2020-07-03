@@ -18,7 +18,7 @@ public class ReadJsonFile implements IDataReader {
 /**
  * This method is used to read a JSON file with the ObjectMapper class 
  * from jackson dependency. This dependency comes with springBoot-starter-web.
- * @return data
+ * @return a DataParser object 
  */
 	@Override
 	public DataParser readData() {
