@@ -1,6 +1,8 @@
 package parser;
 
-import model.DataParser;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import model.Data;
 
 
 public interface IDataReader {
@@ -8,6 +10,8 @@ public interface IDataReader {
  * 
  * DataParser is a simple Java Object with getters and setters.
  */
-	DataParser readData();	
+	Data readData();	
+	
+	//JsonNode getRootNode();
 	
 }

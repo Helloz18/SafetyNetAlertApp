@@ -19,7 +19,7 @@ class WriteJsonFileTest {
 FirestationDAO firestationDAO = new FirestationDAO();
 	
 	@Test
-	void AddValuesInAjsonFileThatExists() throws IOException {
+	void addValuesInAjsonFileThatExists() throws IOException {
 		//Object that allows to read and write in Json
 		ObjectMapper mapper = new ObjectMapper();
 		

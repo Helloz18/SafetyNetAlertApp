@@ -1,37 +1,56 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
 
 import model.Firestation;
-import parser.ReadJsonFile;
+import parser.DataReader;
 
+@Repository
 public class FirestationDAO implements InterfaceDAO<Firestation> {
 
-	private ReadJsonFile read = new ReadJsonFile();
+	private DataReader read = new DataReader();
+	List<Firestation> firestations = read.readData().getFirestations();
 	
 	@Override
 	public List<Firestation> findAll() {
-		return read.readData().getFirestations();	
+		return firestations;	
 	}
 
 	@Override
-	public void save(Firestation firestation) {
-		// TODO Auto-generated method stub
-		
-	}	
+	public Firestation save(Firestation firestation) {
+		firestations.add(firestation);	
+		return firestation;
+	}
+	
 	@Override
 	public void delete(Firestation firestation) {
-		// TODO Auto-generated method stub
+		firestations.remove(firestation);
 		
 	}
 
 	@Override
-	public void update(Firestation firestation, String[] params) {
-		// TODO Auto-generated method stub
+	public void update(Firestation firestation, String param) {
+		
 		
 	}
-
-
+	
+	@Override
+	public List<String> findById(int station) {
+		List<String>addresses = new ArrayList<>();
+		for (int i=0; i<firestations.size(); i++) {
+			int stationFind = firestations.get(i).getStation();
+			if (stationFind ==station) {
+				addresses.add(firestations.get(i).getAddress());
+			}
+		}	if (addresses.size() != 0) {
+		return addresses;			
+		}else {
+			return null;
+		}
+		
+	}
 	
 }

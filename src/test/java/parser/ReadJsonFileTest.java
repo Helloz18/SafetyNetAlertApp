@@ -13,7 +13,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import model.DataParser;
+import model.Data;
 
 public class ReadJsonFileTest {
 
@@ -22,7 +22,7 @@ public class ReadJsonFileTest {
 		
 		InputStream is = new FileInputStream("dataTest.json");
 		ObjectMapper mapper = new ObjectMapper();
-		DataParser data = mapper.readValue(is, DataParser.class);
+		Data data = mapper.readValue(is, Data.class);
 			
 		assertEquals("John", data.getPersons().get(0).getFirstName());
 	}
@@ -32,7 +32,7 @@ public class ReadJsonFileTest {
 		
 		InputStream is = new FileInputStream("dataTest.json");
 		ObjectMapper mapper = new ObjectMapper();
-		DataParser data = mapper.readValue(is, DataParser.class);
+		Data data = mapper.readValue(is, Data.class);
 			
 		assertEquals("3", data.getFirestations().get(0).getStation());
 	}
