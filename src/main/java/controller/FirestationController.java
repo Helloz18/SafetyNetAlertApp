@@ -9,15 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import dao.FirestationDAO;
 import dao.PersonsSupervisedByFirestationDAO;
 import model.Firestation;
+import model.PersonsSupervisedByFirestation;
 
 @RestController
 public class FirestationController {
@@ -58,12 +57,12 @@ public class FirestationController {
  */
 	
 	@GetMapping("/firestation")
-	public List<String> findPeopleByStation(@RequestParam(value="stationNumber", required=true) int station) {
-		List<String> peopleForThisStation = dao.findById(station);
+	public ResponseEntity<PersonsSupervisedByFirestation> findPeopleByStation(@RequestParam(value="stationNumber", required=true) int station) {
+		PersonsSupervisedByFirestation peopleForThisStation = dao.findByStationNumber(station);
 		if (peopleForThisStation == null) {
 			return null;
 		}
-		else return peopleForThisStation;
+		else return ResponseEntity.ok(peopleForThisStation);
 			
 		}
 

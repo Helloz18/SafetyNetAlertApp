@@ -6,55 +6,62 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import model.Data;
-import model.Firestation;
 import model.Medicalrecord;
 import model.Person;
 import model.PersonsSupervisedByFirestation;
 import utils.Utils;
 
 @Service
-public class PersonsSupervisedByFirestationDAO implements InterfaceDAO<PersonsSupervisedByFirestation> {
+public class PersonsSupervisedByFirestationDAO  {
 	
 	Data data = Data.getInstance();
 	List<Person> persons = data.getPersons();
-	List<Firestation> firestations = data.getFirestations();
 	List<Medicalrecord> medicalrecords = data.getMedicalrecords();
 	
 	FirestationDAO firestationDAO = new FirestationDAO();
 
-	@Override
-	public List<String> findById(int station) {
+	
+	public PersonsSupervisedByFirestation findByStationNumber(int station) {
+		
+		PersonsSupervisedByFirestation result = new PersonsSupervisedByFirestation();
 		
 		List <String> streets = firestationDAO.findById(station);
-		List <String> peopleSearched = new ArrayList<>();
+		List <Person> peopleSearched = new ArrayList<>();		
 		int adults = 0;
 		int children = 0;
-		for(int j=0; j<streets.size(); j++) {
-			for(int i =0; i<persons.size(); i++) {
-				if(persons.get(i).getAddress().equals(streets.get(j))) {
-					peopleSearched.add(persons.get(i).getFirstName());
-					peopleSearched.add(persons.get(i).getLastName());
-					peopleSearched.add(persons.get(i).getAddress());
-					peopleSearched.add(persons.get(i).getPhone());
-			// à revoir : attention si l'ordre ne correspond pas dans le json, il faudrait chercher la date par le prénom + nom
-					peopleSearched.add(medicalrecords.get(i).getBirthdate());
-			
-					Utils utils = new Utils();
-					int age = utils.calculateAge(medicalrecords.get(i).getBirthdate());		
-			
-					if (age > 18) {
-						adults++;
-						peopleSearched.add("adult" + adults);
-					}else {
-						children++;
-						peopleSearched.add("child" + children);
-					}
-					
+		
+		for(String street : streets) { // pour chaque rue supervisée par la station
+			for(int i =0; i<persons.size(); i++) { // parcours la liste de toutes les personnes
+				if(persons.get(i).getAddress().equals(street)) { // pour trouver celles pour lesquelles la rue est supervisée
+					peopleSearched.add(persons.get(i)); // ajouter chaque personne à la liste			
 				}
 			}
+		}
+		
+			for (Person person : peopleSearched) { // pour les personnes trouvées
+				for(int j=0; j<medicalrecords.size(); j++) { // parcours la liste des medicalrecords
+					if(person.getFirstName().equals(medicalrecords.get(j).getFirstName())
+						&&(person.getLastName().equals(medicalrecords.get(j).getLastName()))) // si même prénom, même nom
+					{
+						String birthdate = medicalrecords.get(j).getBirthdate(); // récupère la date de naissance pour calculer l'âge
+						Utils utils = new Utils();
+						int age = utils.calculateAge(birthdate);		
 				
-		}if (peopleSearched.size() != 0) {
-				return peopleSearched;	
+						if (age > 18) {
+							adults++;
+						}else {
+							children++;
+						}
+				
+					}
+				}
+			}							
+				result.setPersons(peopleSearched);
+				result.setAdults(adults);
+				result.setChildren(children);
+				
+		if (peopleSearched.size() != 0) {
+				return result;	
 
 				}else {
 					return null;
@@ -62,33 +69,4 @@ public class PersonsSupervisedByFirestationDAO implements InterfaceDAO<PersonsSu
 		
 	}
 
-	
-
-
-	@Override
-	public PersonsSupervisedByFirestation save(PersonsSupervisedByFirestation model) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void update(PersonsSupervisedByFirestation model, String param) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(PersonsSupervisedByFirestation model) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	@Override
-	public List<PersonsSupervisedByFirestation> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

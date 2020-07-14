@@ -5,14 +5,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import model.Data;
 import model.Firestation;
+import model.Person;
 import parser.DataReader;
 
 @Repository
 public class FirestationDAO implements InterfaceDAO<Firestation> {
 
-	private DataReader read = new DataReader();
-	List<Firestation> firestations = read.readData().getFirestations();
+	List<Firestation> firestations = Data.getInstance().getFirestations();
 	
 	@Override
 	public List<Firestation> findAll() {
