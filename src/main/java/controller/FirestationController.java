@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import dao.FirestationDAO;
+import dao.PersonWithAgeAndMedicalRecordsDAO;
 import dao.PersonsSupervisedByFirestationDAO;
 import model.Firestation;
+import model.PersonWithAgeAndMedicalRecords;
 import model.PersonsSupervisedByFirestation;
 
 @RestController
@@ -24,7 +26,9 @@ public class FirestationController {
 
 	FirestationDAO firestationDAO = new FirestationDAO();
 	
-	PersonsSupervisedByFirestationDAO dao = new PersonsSupervisedByFirestationDAO();
+	PersonsSupervisedByFirestationDAO dao = new PersonsSupervisedByFirestationDAO();	
+	PersonWithAgeAndMedicalRecordsDAO pwamrDAO = new PersonWithAgeAndMedicalRecordsDAO();
+	
 	
 	@GetMapping("/firestations-infos")
 	public List<Firestation> firestations() {
@@ -64,6 +68,14 @@ public class FirestationController {
 		}
 		else return ResponseEntity.ok(peopleForThisStation);
 			
-		}
+	}
+	
+
+
+	
+	@GetMapping("/fire")
+	public List <PersonWithAgeAndMedicalRecords> findPeopleFromAddress(@RequestParam(value="address", required=true) String address){
+		return pwamrDAO.findByAddress(address);
+	}
 
 }

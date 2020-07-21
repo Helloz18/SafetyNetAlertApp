@@ -12,5 +12,4 @@ public interface InterfaceDAO <Model> {
 
 	    void delete(Model model);
 
-		List<String> findById(int param);
 }

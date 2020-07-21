@@ -18,6 +18,8 @@ public class PersonsSupervisedByFirestationDAO  {
 	List<Person> persons = data.getPersons();
 	List<Medicalrecord> medicalrecords = data.getMedicalrecords();
 	
+	Utils utils = new Utils();
+	
 	FirestationDAO firestationDAO = new FirestationDAO();
 
 	
@@ -44,15 +46,13 @@ public class PersonsSupervisedByFirestationDAO  {
 						&&(person.getLastName().equals(medicalrecords.get(j).getLastName()))) // si même prénom, même nom
 					{
 						String birthdate = medicalrecords.get(j).getBirthdate(); // récupère la date de naissance pour calculer l'âge
-						Utils utils = new Utils();
 						int age = utils.calculateAge(birthdate);		
 				
 						if (age > 18) {
 							adults++;
 						}else {
 							children++;
-						}
-				
+						}			
 					}
 				}
 			}							
@@ -65,8 +65,9 @@ public class PersonsSupervisedByFirestationDAO  {
 
 				}else {
 					return null;
-				}
-		
+				}	
 	}
 
+	
+	
 }

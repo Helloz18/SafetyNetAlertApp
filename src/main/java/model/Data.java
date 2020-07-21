@@ -29,16 +29,6 @@ public class Data {
 		this.medicalrecords = medicalrecords;
 	}
 	
-
-//Méthode d'accès au singleton
-//	  public static Data getInstance(){
-//	    if(data == null)
-//	      data = new Data();
-//	      
-//	    return data;
-//	  }
-	   
-	
 //getters and setters	
 	public List<Person> getPersons() {
 		return persons;
