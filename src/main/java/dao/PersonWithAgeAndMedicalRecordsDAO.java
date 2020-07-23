@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 
@@ -22,35 +23,37 @@ public class PersonWithAgeAndMedicalRecordsDAO {
 	
 
 	public List<PersonWithAgeAndMedicalRecords> findByAddress(String address) {
-		
+
 		List<PersonWithAgeAndMedicalRecords> result = new ArrayList<>();
-		
+
 		List<Person> personsInThisAddress = personDAO.findByAddress(address);
 		List<Firestation> allFirestations = firestationDAO.findAll();
-		
-		for(Firestation firestation : allFirestations) {
+
+		for (Firestation firestation : allFirestations) {
 			if (firestation.getAddress().equals(address)) {
 				int stationNumber = firestation.getStation();
-		
 
-		for (Person person : personsInThisAddress) {
-			for (int i = 0; i < medicalrecords.size(); i++) {
-				if (person.getFirstName().equals(medicalrecords.get(i).getFirstName())
-						&& (person.getLastName().equals(medicalrecords.get(i).getLastName()))) {
-					String birthdate = medicalrecords.get(i).getBirthdate();
-					int age = utils.calculateAge(birthdate);			
-					
-					PersonWithAgeAndMedicalRecords p = new PersonWithAgeAndMedicalRecords();
-					
-					p.setPerson(person);
-					p.setAge(age);
-					p.setMedicalrecords(medicalrecords.get(i));
-					p.setStationNumber(stationNumber);
-					result.add(p);}}}
+				for (Person person : personsInThisAddress) {
+					for (int i = 0; i < medicalrecords.size(); i++) {
+						if (person.getFirstName().equals(medicalrecords.get(i).getFirstName())
+								&& (person.getLastName().equals(medicalrecords.get(i).getLastName()))) {
+							String birthdate = medicalrecords.get(i).getBirthdate();
+							int age = utils.calculateAge(birthdate);
+
+							PersonWithAgeAndMedicalRecords p = new PersonWithAgeAndMedicalRecords();
+
+							p.setPerson(person);
+							p.setAge(age);
+							p.setMedicalrecords(medicalrecords.get(i));
+							p.setStationNumber(stationNumber);
+							if(!result.contains(p)) {
+							result.add(p);
+							}
+						}
+					}
+				}
 			}
 		}
-
-		
 		return result;
 	}
 }

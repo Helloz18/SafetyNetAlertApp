@@ -28,13 +28,26 @@ public class FloodDAO {
 	public Map<String, List<PersonWithAgeAndMedicalRecords>> getPersonsByAddressForAstationNumber(List<Integer> stationNumbers) {
 		
 		Map<String, List<PersonWithAgeAndMedicalRecords>> result = new HashMap<>();
-		for(int stationNumber : stationNumbers) {
-		List<String> addresses = firestationDAO.findById(stationNumber);
-		
-			for(String address : addresses) {
-				List<PersonWithAgeAndMedicalRecords> p = personWithAgeAndMedicalRecordsDAO.findByAddress(address);		
-				result.put(address, p);		
-		}}
-		return result;
+				
+		for (int stationNumber : stationNumbers) { //pour chaque numéro de station
+			List<String> addresses = firestationDAO.findById(stationNumber);//récupère les addresses (sans doublons)			
+
+			for (String address : addresses) {// pour chaque addresse
+				//récupère la liste des personnes de cette addresse			
+				List<PersonWithAgeAndMedicalRecords> personsInThisAddress = personWithAgeAndMedicalRecordsDAO.findByAddress(address);			
+				
+				
+				//Si le numéro de station est différent de ceux demandés, ne mets pas deux fois la même personne
+				// pourquoi Ron Peters station 4 apparait toujours lorsque l'on demande la station 3 ??
+				for (int i=0; i<personsInThisAddress.size(); i++) {
+					if (personsInThisAddress.get(i).getStationNumber() != stationNumber) {
+						personsInThisAddress.remove(personsInThisAddress.get(i));
+						}				
+				}
+				result.put(address, personsInThisAddress);					
+			}
+
 		}
+		return result;
+	}
 }

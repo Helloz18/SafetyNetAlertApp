@@ -49,6 +49,7 @@ public class FirestationDAO implements InterfaceDAO<Firestation> {
 	
 	/**
 	 * This method will find all the addresses supervised by a station-number.
+	 * An address will appear only once even if there is several result in the file.
 	 * @param station
 	 * @return a list of String address
 	 */
@@ -57,7 +58,7 @@ public class FirestationDAO implements InterfaceDAO<Firestation> {
 		List<String>addresses = new ArrayList<>();
 		for (int i=0; i<firestations.size(); i++) {
 			int stationFind = firestations.get(i).getStation();
-			if (stationFind ==station) {
+			if (stationFind == station && !addresses.contains(firestations.get(i).getAddress())) {
 				addresses.add(firestations.get(i).getAddress());
 			}
 		}	if (addresses.size() != 0) {
