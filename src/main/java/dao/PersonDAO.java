@@ -7,8 +7,6 @@ import model.Data;
 import model.Medicalrecord;
 import model.Person;
 import model.PersonInfos;
-import model.PersonWithAgeAndMedicalRecords;
-import model.ChildWithAgeAndMembersOfFamily;
 import utils.Utils;
 
 public class PersonDAO implements InterfaceDAO<Person>{
@@ -74,9 +72,7 @@ public class PersonDAO implements InterfaceDAO<Person>{
 				}
 			}
 		}
-
 		return result;
-
 	}
 
 }

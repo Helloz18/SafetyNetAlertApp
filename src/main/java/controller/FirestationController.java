@@ -29,17 +29,32 @@ public class FirestationController {
 	PersonsSupervisedByFirestationDAO dao = new PersonsSupervisedByFirestationDAO();	
 	PersonWithAgeAndMedicalRecordsDAO pwamrDAO = new PersonWithAgeAndMedicalRecordsDAO();
 	
+	/**
+	 * This url will return all the addresses with the station-number set to supervise this address.
+	 * An address can be supervised by several stations.
+	 * @return a list of "adress whith station-number"
+	 */
 	
 	@GetMapping("/firestations-infos")
 	public List<Firestation> firestations() {
 		return firestationDAO.findAll();
 	}
 	
-	@GetMapping("/firestation/{station}")
-	public List<String> findByStation(@PathVariable int station) {
-		return firestationDAO.findById(station);
+	/**
+	 * This url returns a list of the differents addresses supervised by a station-number.
+	 * @param stationNumber
+	 * @return list of addresses
+	 */
+	@GetMapping("/firestation/{stationNumber}")
+	public List<String> findByStation(@PathVariable int stationNumber) {
+		return firestationDAO.findById(stationNumber);
 	}
 	
+	/**
+	 * A firestation is composed by an address and an station-number.
+	 * @param firestation
+	 * @return
+	 */
 	@PostMapping("/firestation")
 	public ResponseEntity<Void> addStreetSuperVisedByAstation(@RequestBody Firestation firestation) {
 		Firestation streetAndStation = firestationDAO.save(firestation);
@@ -60,9 +75,16 @@ public class FirestationController {
  * 		@DeleteMapping()
  */
 	
+	/**
+	 * This url returns a list of persons supervised by a stationNumber.
+	 * A stationNumber supervise several addresses.
+	 * @param stationNumber
+	 * @return
+	 */
 	@GetMapping("/firestation")
-	public ResponseEntity<PersonsSupervisedByFirestation> findPeopleByStation(@RequestParam(value="stationNumber", required=true) int station) {
-		PersonsSupervisedByFirestation peopleForThisStation = dao.findByStationNumber(station);
+	public ResponseEntity<PersonsSupervisedByFirestation> findPeopleByStation(
+			@RequestParam(value="stationNumber", required=true) int stationNumber) {
+		PersonsSupervisedByFirestation peopleForThisStation = dao.findByStationNumber(stationNumber);
 		if (peopleForThisStation == null) {
 			return null;
 		}

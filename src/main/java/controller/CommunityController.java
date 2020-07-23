@@ -13,6 +13,12 @@ public class CommunityController {
 
 	InfosDAO infosDAO = new InfosDAO();
 	
+	/**
+	 * This url returns a list of Email of the persons living in a city.
+	 * If several persons have the same Email, the list will show this Email only once.
+	 * @param city
+	 * @return a list of String "email"
+	 */
 	@GetMapping("/communityEmail")
 	public List<String> getEmaisForAcity(@RequestParam(value="city", required=true) String city) {
 		return infosDAO.emailsForAcity(city);		
