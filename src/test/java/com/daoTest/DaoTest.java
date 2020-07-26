@@ -32,17 +32,17 @@ public class DaoTest {
 		
 	}
 	
-	@Test
-	void testDaoAddAFirestationAtTheEndOfTheList() {
-		Firestation firestation = new Firestation("nouvelle adresse2", 6);
-		dao.save(firestation);
-		assertEquals(14,firestations.size());
-	}
-	
-	@Test
-	void testDAORemoveLastFirestationFromTheList() {
-		
-	}
+//	@Test
+//	void testDaoAddAFirestationAtTheEndOfTheList() {
+//		Firestation firestation = new Firestation("nouvelle adresse2", 6);
+//		dao.save(firestation);
+//		assertEquals(14,firestations.size());
+//	}
+//	
+//	@Test
+//	void testDAORemoveLastFirestationFromTheList() {
+//		
+//	}
 	
 	@Test
 	void testGetAddressesSupervisedByAfirestationWithItsStationNumber() {

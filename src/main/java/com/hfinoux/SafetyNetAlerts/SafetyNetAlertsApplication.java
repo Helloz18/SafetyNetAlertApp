@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 
 @SpringBootApplication
-@ComponentScan(basePackages={"controller"})
+@ComponentScan(basePackages={"controller","dao"})
 public class SafetyNetAlertsApplication {
 
 	private static Logger logger = LogManager.getLogger(SafetyNetAlertsApplication.class);

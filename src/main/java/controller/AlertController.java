@@ -3,24 +3,25 @@ package controller;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import dao.PersonsSupervisedByFirestationDAO;
 import dao.ChildWithAgeAndMembersOfFamilyDAO;
+import dao.PersonsSupervisedByFirestationDAO;
 import dao.PhoneDAO;
-import model.PersonsSupervisedByFirestation;
 import model.ChildWithAgeAndMembersOfFamily;
 
 @RestController
 public class AlertController {
 	
-	PersonsSupervisedByFirestationDAO dao = new PersonsSupervisedByFirestationDAO();
-	PhoneDAO phoneDAO = new PhoneDAO();
-	ChildWithAgeAndMembersOfFamilyDAO redao = new ChildWithAgeAndMembersOfFamilyDAO();
+	@Autowired
+	PersonsSupervisedByFirestationDAO dao;
+	@Autowired
+	PhoneDAO phoneDAO;
+	@Autowired
+	ChildWithAgeAndMembersOfFamilyDAO redao;
 
 
 	/**

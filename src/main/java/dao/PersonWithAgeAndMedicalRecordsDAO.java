@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 
 import model.Data;
 import model.Firestation;
@@ -12,6 +13,7 @@ import model.Person;
 import model.PersonWithAgeAndMedicalRecords;
 import utils.Utils;
 
+@Service
 public class PersonWithAgeAndMedicalRecordsDAO {
 
 	Data data = Data.getInstance();

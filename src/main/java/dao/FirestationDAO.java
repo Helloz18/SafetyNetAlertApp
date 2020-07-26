@@ -38,12 +38,16 @@ public class FirestationDAO implements InterfaceDAO<Firestation> {
 		firestations.remove(firestation);
 		
 	}
-	/**
-	 * This method will change a firestation (its address of its station-number)
+	/**TODO
+	 * This method will change a firestation (its address or its station-number)
 	 */
 	@Override
-	public void update(Firestation firestation, String param) {
-		
+	public void update(Firestation firestation, String address) {
+		for(int i=0; i<firestations.size(); i++) {
+			if(firestations.get(i).getAddress().equals(address)) {
+				
+			}
+		}
 		
 	}
 	

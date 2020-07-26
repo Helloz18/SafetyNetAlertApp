@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,8 +11,9 @@ import dao.InfosDAO;
 
 @RestController
 public class CommunityController {
-
-	InfosDAO infosDAO = new InfosDAO();
+	
+	@Autowired
+	InfosDAO infosDAO;
 	
 	/**
 	 * This url returns a list of Email of the persons living in a city.

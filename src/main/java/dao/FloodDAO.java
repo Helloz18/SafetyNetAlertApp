@@ -5,6 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tomcat.jni.Address;
+import org.springframework.http.converter.json.MappingJacksonValue;
+
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+
 import model.Data;
 import model.Person;
 import model.PersonWithAgeAndMedicalRecords;
@@ -25,28 +32,28 @@ public class FloodDAO {
 		
 	}
 
-	public Map<String, List<PersonWithAgeAndMedicalRecords>> getPersonsByAddressForAstationNumber(List<Integer> stationNumbers) {
-		
+	public Map<String, List<PersonWithAgeAndMedicalRecords>> getPersonsByAddressForAstationNumber(
+			List<Integer> stationNumbers) {
+
+		// Map<String, MappingJacksonValue> result = new HashMap<>();
 		Map<String, List<PersonWithAgeAndMedicalRecords>> result = new HashMap<>();
-				
-		for (int stationNumber : stationNumbers) { //pour chaque numéro de station
-			List<String> addresses = firestationDAO.findById(stationNumber);//récupère les addresses (sans doublons)			
 
-			for (String address : addresses) {// pour chaque addresse
-				//récupère la liste des personnes de cette addresse			
-				List<PersonWithAgeAndMedicalRecords> personsInThisAddress = personWithAgeAndMedicalRecordsDAO.findByAddress(address);			
-				
-				
-				//Si le numéro de station est différent de ceux demandés, ne mets pas deux fois la même personne
-				// pourquoi Ron Peters station 4 apparait toujours lorsque l'on demande la station 3 ??
-				for (int i=0; i<personsInThisAddress.size(); i++) {
-					if (personsInThisAddress.get(i).getStationNumber() != stationNumber) {
-						personsInThisAddress.remove(personsInThisAddress.get(i));
-						}				
+		for (int stationNumber : stationNumbers) { // pour chaque numéro de station
+			List<String> addresses = firestationDAO.findById(stationNumber);// récupère les addresses (sans doublons)
+
+			for (int i = 0; i < addresses.size(); i++) {// pour chaque addresse
+				// récupère la liste des personnes de cette addresse
+				List<PersonWithAgeAndMedicalRecords> personsInThisAddress = personWithAgeAndMedicalRecordsDAO
+						.findByAddress(addresses.get(i));
+				List<PersonWithAgeAndMedicalRecords> p = new ArrayList<>();
+				for (int j = 0; j < personsInThisAddress.size(); j++) {
+
+					if (personsInThisAddress.get(j).getStationNumber() == stationNumber) {
+						p.add(personsInThisAddress.get(j));
+					}
+					result.put(addresses.get(i), p);
 				}
-				result.put(address, personsInThisAddress);					
 			}
-
 		}
 		return result;
 	}

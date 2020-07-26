@@ -3,12 +3,15 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import model.ChildWithAgeAndMembersOfFamily;
 import model.Data;
 import model.Medicalrecord;
 import model.Person;
-import model.ChildWithAgeAndMembersOfFamily;
 import utils.Utils;
 
+@Service
 public class ChildWithAgeAndMembersOfFamilyDAO {
 
 	

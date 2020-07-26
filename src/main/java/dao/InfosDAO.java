@@ -3,9 +3,12 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import model.Data;
 import model.Person;
 
+@Service
 public class InfosDAO {
 
 	
