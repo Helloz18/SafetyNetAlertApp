@@ -8,51 +8,49 @@ import java.util.List;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import dao.FirestationDAO;
+import model.Data;
 import model.Firestation;
+import model.PersonsSupervisedByFirestation;
 import parser.DataReader;
 
-public class DaoTest {
+public class FirestationDAOTest {
 
-	FirestationDAO dao = new FirestationDAO();
+	FirestationDAO firestationDAO = new FirestationDAO();
 	
-	private DataReader read = new DataReader();
-	List<Firestation> firestations = read.readData().getFirestations();
+	List<Firestation> firestations = Data.getInstance().getFirestations();
 	
 	@Test
-	void testDaoFindAll() {
-		assertNotNull(dao.findAll());		
+	void firestationDaoFindAll() {
+		//GIVEN //WHEN // THEN
+		assertNotNull(firestationDAO.findAll());		
 	}
 	
 	@Test
-	void testDaoFindTheAddressOfTheFirstFiresation() {
-		String firestation = dao.findAll().get(0).getAddress();
+	void findTheAddressOfTheFirstFiresation() {
+		//GIVEN
+		//WHEN
+		String firestation = firestationDAO.findAll().get(0).getAddress();
+		//THEN
 		assertEquals(firestation,"1509 Culver St");
 		
 	}
-	
-//	@Test
-//	void testDaoAddAFirestationAtTheEndOfTheList() {
-//		Firestation firestation = new Firestation("nouvelle adresse2", 6);
-//		dao.save(firestation);
-//		assertEquals(14,firestations.size());
-//	}
-//	
-//	@Test
-//	void testDAORemoveLastFirestationFromTheList() {
-//		
-//	}
-	
+		
 	@Test
-	void testGetAddressesSupervisedByAfirestationWithItsStationNumber() {
+	void getAddressesSupervisedByAfirestationWithItsStationNumber() {
+		//GIVEN
 		int station = 1;	
 		ArrayList<String> addresses = new ArrayList<>();
+		//WHEN
 		for (int i=0; i<firestations.size(); i++) {
 			if (firestations.get(i).getStation() == (station)) {
 				addresses.add(firestations.get(i).getAddress());
 			}
 		}
+		//THEN
 		assertEquals(3, addresses.size());
 	}
+	
 }

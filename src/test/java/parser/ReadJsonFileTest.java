@@ -3,6 +3,7 @@ package parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,25 +17,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Data;
 
 public class ReadJsonFileTest {
+	
+	File file = new File("dataTest.json");
 
 	@Test
 	void getFirstNameFromFile() throws JsonParseException, JsonMappingException, IOException {
-		
-		InputStream is = new FileInputStream("dataTest.json");
+		InputStream is = new FileInputStream(file);
 		ObjectMapper mapper = new ObjectMapper();
 		Data data = mapper.readValue(is, Data.class);
 			
 		assertEquals("John", data.getPersons().get(0).getFirstName());
 	}
 	
-//	@Test
-//	void getFirestationFromFile() throws JsonParseException, JsonMappingException, IOException {
-//		
-//		InputStream is = new FileInputStream("dataTest.json");
-//		ObjectMapper mapper = new ObjectMapper();
-//		Data data = mapper.readValue(is, Data.class);
-//			
-//		assertEquals("3", data.getFirestations().get(0).getStation());
-//	}
+	@Test
+	void getFirestationFromFile() throws JsonParseException, JsonMappingException, IOException {
+		InputStream is = new FileInputStream(file);
+		ObjectMapper mapper = new ObjectMapper();
+		Data data = mapper.readValue(is, Data.class);
+		
+		assertEquals(3, data.getFirestations().get(0).getStation());
+	}
  
 }
