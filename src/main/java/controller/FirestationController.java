@@ -4,6 +4,8 @@ package controller;
 import java.net.URI;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,10 @@ public class FirestationController {
 	@Autowired
 	PersonWithAgeAndMedicalRecordsDAO pwamrDAO;
 	
+	private static Logger LOGGER = LogManager.getLogger(FirestationController.class);
+	
+
+	
 	/**
 	 * This URL will return all the addresses with the station-number set to supervise this address.
 	 * An address can be supervised by several stations.
@@ -42,7 +48,9 @@ public class FirestationController {
 	
 	@GetMapping("/firestations-infos")
 	public List<Firestation> firestations() {
+		LOGGER.info("finrestations-infos");
 		return firestationDAO.findAll();
+
 	}
 	
 	/**
@@ -52,7 +60,10 @@ public class FirestationController {
 	 */
 	@GetMapping("/firestation/{stationNumber}")
 	public List<String> findByStation(@PathVariable int stationNumber) {
+	    LOGGER.info("addresses from the stationNumber "+ stationNumber);
 		return firestationDAO.findById(stationNumber);
+
+
 	}
 	
 	/**
@@ -61,6 +72,7 @@ public class FirestationController {
 	 */
 	@PostMapping("/firestation")
 	public ResponseEntity<Void> addStreetSuperVisedByAstation(@RequestBody Firestation firestation) {
+	    
 		Firestation streetAndStation = firestationDAO.save(firestation);
 		
 		if (streetAndStation == null)
@@ -73,6 +85,7 @@ public class FirestationController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+        
     }
 
 	/**

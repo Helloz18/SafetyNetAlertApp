@@ -3,14 +3,18 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
+import controller.FirestationController;
 import model.Data;
 import model.Firestation;
 
 @Repository
 public class FirestationDAO implements InterfaceDAO<Firestation> {
 
+	private static Logger LOGGER = LogManager.getLogger(FirestationDAO.class);
 	List<Firestation> firestations = Data.getInstance().getFirestations();
 	
 	/**
@@ -69,6 +73,7 @@ public class FirestationDAO implements InterfaceDAO<Firestation> {
 		}	if (addresses.size() != 0) {
 		return addresses;			
 		}else {
+			LOGGER.error("The stationNumber "+ station + " doesn't exist.");
 			return null;
 		}
 		
