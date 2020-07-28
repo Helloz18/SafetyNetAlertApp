@@ -76,11 +76,16 @@ public class FirestationController {
         return ResponseEntity.created(location).build();
     }
 
-/**TODO	@PutMapping()
- * 		
- */
-//	@PutMapping("/firestation")
-//	public 
+	/**
+	 * This method update a firestation, change an address or an id of a firestation.
+	 * @param firestation
+	 * @return
+	 */
+	@PutMapping("/firestation")
+	public ResponseEntity<Void> updateFirestationByAstation(@RequestBody Firestation firestation) {
+		firestationDAO.update(firestation);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
 	
 	/**
 	 * This method removes a firestation from the list of firestations.

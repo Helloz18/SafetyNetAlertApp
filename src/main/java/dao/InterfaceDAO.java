@@ -8,7 +8,7 @@ public interface InterfaceDAO <Model> {
 	    
 	    Model save(Model model);
 
-	    void update(Model model, String param);
+	    void update(Model model);
 
 	    void delete(Model model);
 

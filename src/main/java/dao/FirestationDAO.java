@@ -42,10 +42,11 @@ public class FirestationDAO implements InterfaceDAO<Firestation> {
 	 * This method will change a firestation (its address or its station-number)
 	 */
 	@Override
-	public void update(Firestation firestation, String address) {
+	public void update(Firestation firestation) {
 		for(int i=0; i<firestations.size(); i++) {
-			if(firestations.get(i).getAddress().equals(address)) {
-				
+			if(firestations.get(i).getAddress().equals(firestation.getAddress())) {
+				firestations.set(i,firestation);
+			return;	
 			}
 		}
 		

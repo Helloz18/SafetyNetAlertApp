@@ -25,21 +25,26 @@ public class PersonDAO implements InterfaceDAO<Person>{
 	}
 
 	@Override
-	public Person save(Person model) {
-		// TODO Auto-generated method stub
-		return null;
+	public Person save(Person person) {
+		persons.add(person);
+		return person;
 	}
 
 	@Override
-	public void update(Person model, String param) {
-		// TODO Auto-generated method stub
+	public void update(Person person) {
+		for(int i=0; i<persons.size(); i++) {
+			if(persons.get(i).getFirstName().equals(person.getFirstName())
+					&& (persons.get(i).getLastName().equals(person.getLastName()))) {
+				persons.set(i, person);
+				return;
+			}
+		}
 		
 	}
 
 	@Override
-	public void delete(Person model) {
-		// TODO Auto-generated method stub
-		
+	public void delete(Person person) {
+		persons.remove(person);
 	}
 
 	
