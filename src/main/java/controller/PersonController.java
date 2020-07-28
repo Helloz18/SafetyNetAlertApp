@@ -21,49 +21,63 @@ import model.PersonInfos;
 
 @RestController
 public class PersonController {
-	
+
 	@Autowired
 	PersonDAO personDAO;
 
 	/**
-	 * This url returns the informations of a person : address, age and medical-records.
-	 * If several people have the same name and first-name, they will appear in the list.
+	 * 
+	 * @return all people.
+	 */
+	@GetMapping("/allPersons")
+	public List<Person> getPersonWithInfos() {
+		return personDAO.findAll();
+	}
+
+	/**
+	 * This url returns the informations of a person : address, age and
+	 * medical-records. If several people have the same name and first-name, they
+	 * will appear in the list.
+	 * 
 	 * @param firstName
 	 * @param lastName
 	 * @return
 	 */
 	@GetMapping("/personInfos")
 	public List<PersonInfos> getPersonWithInfos(
-			@RequestParam(value="firstName", required= true) String firstName,
-			@RequestParam(value="lastName", required=true) 	 String lastName){
-			
+			@RequestParam(value = "firstName", required = true) String firstName,
+			@RequestParam(value = "lastName", required = true) String lastName) {
+
 		return personDAO.findByFirstNameAndLastName(firstName, lastName);
-		
 	}
-	
+
 	/**
-	 * A person is composed by a firstName, lastName, address, city, zip, phone, email.
+	 * A person is composed by a firstName, lastName, address, city, zip, phone,
+	 * email.
+	 * 
 	 * @param person
 	 * @return
 	 */
 	@PostMapping("/person")
 	public ResponseEntity<Void> addPerson(@RequestBody Person person) {
 		Person newPerson = personDAO.save(person);
-		
+
 		if (newPerson == null)
-            return ResponseEntity.noContent().build();
+			return ResponseEntity.noContent().build();
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{firstName}")
-                .buildAndExpand(newPerson.getFirstName())
-                .toUri();
+		URI location = 
+				ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{firstName}")
+				.buildAndExpand(newPerson.getFirstName())
+				.toUri();
 
-        return ResponseEntity.created(location).build();
-    }
+		return ResponseEntity.created(location).build();
+	}
 
 	/**
 	 * This method update a person, change an address, city, zip, phone, email.
+	 * 
 	 * @param person
 	 * @return
 	 */
@@ -72,9 +86,10 @@ public class PersonController {
 		personDAO.update(person);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	/**
 	 * This method removes a person from the list of persons.
+	 * 
 	 * @param person
 	 * @return
 	 */
@@ -83,6 +98,5 @@ public class PersonController {
 		personDAO.delete(person);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
-	
 
 }
