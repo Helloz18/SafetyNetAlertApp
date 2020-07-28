@@ -18,18 +18,25 @@ public class PersonDAO implements InterfaceDAO<Person>{
 	List<Medicalrecord> medicalrecords = Data.getInstance().getMedicalrecords();
 	Utils utils = new Utils();
 	
-
+	/**
+	 * returns a list of all people.
+	 */
 	@Override
 	public List<Person> findAll() {
 		return persons;
 	}
-
+	/**
+	 * add a person in the list.
+	 */
 	@Override
 	public Person save(Person person) {
 		persons.add(person);
 		return person;
 	}
 
+	/**
+	 * modify a person.
+	 */
 	@Override
 	public void update(Person person) {
 		for(int i=0; i<persons.size(); i++) {
@@ -42,12 +49,19 @@ public class PersonDAO implements InterfaceDAO<Person>{
 		
 	}
 
+	/**
+	 * remove a person from the list.
+	 */
 	@Override
 	public void delete(Person person) {
 		persons.remove(person);
 	}
 
-	
+	/**
+	 * 
+	 * @param address
+	 * @return a list of person living in an address.
+	 */
 	public List<Person> findByAddress(String address) {
 		List<Person> personsInThisAddress = new ArrayList<>();
 		for(Person person : persons) {
@@ -58,6 +72,13 @@ public class PersonDAO implements InterfaceDAO<Person>{
 		return personsInThisAddress;
 	}
 
+	/**
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @return a list of person named by this firstName an this lastName.
+	 * Returns a list cause there can be more than one person with these parameters.
+	 */
 	public List<PersonInfos> findByFirstNameAndLastName(String firstName, String lastName) {
 
 		List<PersonInfos> result = new ArrayList<>();

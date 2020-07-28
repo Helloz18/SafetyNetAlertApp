@@ -35,9 +35,9 @@ public class FirestationController {
 	PersonWithAgeAndMedicalRecordsDAO pwamrDAO;
 	
 	/**
-	 * This url will return all the addresses with the station-number set to supervise this address.
+	 * This URL will return all the addresses with the station-number set to supervise this address.
 	 * An address can be supervised by several stations.
-	 * @return a list of "adress whith station-number"
+	 * @return a list of "adress with station-number"
 	 */
 	
 	@GetMapping("/firestations-infos")
@@ -46,7 +46,7 @@ public class FirestationController {
 	}
 	
 	/**
-	 * This url returns a list of the differents addresses supervised by a station-number.
+	 * This URL returns a list of the different addresses supervised by a station-number.
 	 * @param stationNumber
 	 * @return list of addresses
 	 */
@@ -58,7 +58,6 @@ public class FirestationController {
 	/**
 	 * A firestation is composed by an address and an station-number.
 	 * @param firestation
-	 * @return
 	 */
 	@PostMapping("/firestation")
 	public ResponseEntity<Void> addStreetSuperVisedByAstation(@RequestBody Firestation firestation) {
@@ -79,7 +78,6 @@ public class FirestationController {
 	/**
 	 * This method update a firestation, change an address or an id of a firestation.
 	 * @param firestation
-	 * @return
 	 */
 	@PutMapping("/firestation")
 	public ResponseEntity<Void> updateFirestationByAstation(@RequestBody Firestation firestation) {
@@ -90,7 +88,6 @@ public class FirestationController {
 	/**
 	 * This method removes a firestation from the list of firestations.
 	 * @param firestation
-	 * @return
 	 */
 	@DeleteMapping("/firestation")
 	public ResponseEntity<Void> removeFirestationByAstation(@RequestBody Firestation firestation) {
@@ -99,7 +96,7 @@ public class FirestationController {
 	}
 	
 	/**
-	 * This url returns a list of persons supervised by a stationNumber.
+	 * This URL returns a list of persons supervised by a stationNumber.
 	 * A stationNumber supervise several addresses.
 	 * @param stationNumber
 	 * @return
@@ -113,11 +110,13 @@ public class FirestationController {
 		}
 		else return ResponseEntity.ok(peopleForThisStation);
 			
-	}
-	
+	}	
 
-
-	
+	/**
+	 * This URL will returns a list of "personWithAgeAndMedicalRecords" living at this address.
+	 * @param address
+	 * @return a list of person with age and medicalrecords.
+	 */
 	@GetMapping("/fire")
 	public List <PersonWithAgeAndMedicalRecords> findPeopleFromAddress(@RequestParam(value="address", required=true) String address){
 		return pwamrDAO.findByAddress(address);

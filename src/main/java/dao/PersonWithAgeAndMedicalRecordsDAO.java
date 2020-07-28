@@ -22,6 +22,11 @@ public class PersonWithAgeAndMedicalRecordsDAO {
 	FirestationDAO firestationDAO = new FirestationDAO();
 	Utils utils = new Utils();
 
+	/**
+	 * This method will select all people living in an address and return them as a list with their age and medicalrecords.
+	 * @param address
+	 * @return a list of PersonWithAgeAndMedicalRecords.
+	 */
 	public List<PersonWithAgeAndMedicalRecords> findByAddress(String address) {
 
 		List<PersonWithAgeAndMedicalRecords> result = new ArrayList<>();

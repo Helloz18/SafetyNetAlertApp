@@ -14,6 +14,11 @@ public class InfosDAO {
 	
 	List<Person> persons = Data.getInstance().getPersons();
 	
+	/**
+	 * This method will be used to get all the emails of people living in a city.
+	 * @param city
+	 * @return a list of emails.
+	 */
 	public List<String> emailsForAcity(String city){
 		
 		List <String> allEmails = new ArrayList<>();

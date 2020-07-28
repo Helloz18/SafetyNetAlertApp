@@ -22,11 +22,16 @@ public class PersonsSupervisedByFirestationDAO {
 
 	FirestationDAO firestationDAO = new FirestationDAO();
 
-	public PersonsSupervisedByFirestation findByStationNumber(int station) {
+	/**
+	 * This method will return a list of people supervised by a station and the number of adults and children.
+	 * @param stationNumber
+	 * @return a PersonsSupervisedByFirestation
+	 */
+	public PersonsSupervisedByFirestation findByStationNumber(int stationNumber) {
 
 		PersonsSupervisedByFirestation result = new PersonsSupervisedByFirestation();
 
-		List<String> streets = firestationDAO.findById(station);
+		List<String> streets = firestationDAO.findById(stationNumber);
 		List<Person> peopleSearched = new ArrayList<>();
 		int adults = 0;
 		int children = 0;

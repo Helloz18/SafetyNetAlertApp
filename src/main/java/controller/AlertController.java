@@ -25,10 +25,10 @@ public class AlertController {
 
 
 	/**
-	 * This url will return the list of chidren living in an address.
+	 * This URL will return the list of chidren living in an address.
 	 * The list of the rest of the persons living in this address will be set for each child.
 	 * @param address
-	 * @return
+	 * @return a list of chidren.
 	 */
 	@GetMapping("/childAlert")
 	public List<ChildWithAgeAndMembersOfFamily> getChildrenInThisAddress(@RequestParam(value="address", required=true) String address){
@@ -36,11 +36,11 @@ public class AlertController {
 	}
 	
 	/**
-	 * This url will return a list of phoneNumber of people supervised by a stationNumber.
+	 * This URL will return a list of phoneNumber of people supervised by a stationNumber.
 	 * A stationNumber supervise several addresses. 
 	 * If some people have the same phoneNumber, the list will only show this phoneNumber once.
 	 * @param stationNumber
-	 * @return
+	 * @return a list of phoneNumber.
 	 */
 	@GetMapping("/phoneAlert")
 	public List<String> getPeoplePhoneForAstationNumber(@RequestParam(value="firestation", required=true) int stationNumber) {

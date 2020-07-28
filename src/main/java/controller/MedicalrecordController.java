@@ -38,9 +38,7 @@ public class MedicalrecordController {
 
 		/**
 	 * A medicalrecord is composed by a firstName, lastName, birthdate, list of medications, list of allergies.
-	 * 
 	 * @param medicalrecord
-	 * @return
 	 */
 	@PostMapping("/medicalRecord")
 	public ResponseEntity<Void> addMedicalrecord(@RequestBody Medicalrecord medicalrecord) {
@@ -61,9 +59,7 @@ public class MedicalrecordController {
 
 	/**
 	 * This method update a medicalrecord, change birthdate, medications or allergies.
-	 * 
 	 * @param medicalrecord
-	 * @return
 	 */
 	@PutMapping("/medicalRecord")
 	public ResponseEntity<Void> updateMedicalrecord(@RequestBody Medicalrecord medicalrecord) {
@@ -73,9 +69,7 @@ public class MedicalrecordController {
 
 	/**
 	 * This method removes a medicalrecord from the list of medicalrecords.
-	 * 
 	 * @param medicalrecord
-	 * @return
 	 */
 	@DeleteMapping("/medicalRecord")
 	public ResponseEntity<Void> removeMedicalrecord(@RequestBody Medicalrecord medicalrecord) {

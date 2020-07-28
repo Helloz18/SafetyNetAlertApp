@@ -4,10 +4,17 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Utility class
+ *
+ */
 public class Utils {
 
-	//TODO méthode qui convertit "01/01/2000" en format date
-	
+	/**
+	 * This method will calculate an age from a birthdate from a pattern MM/dd/yyyy.
+	 * @param birthdate
+	 * @return a int age.
+	 */
 	public int calculateAge(String birthdate) {
 		LocalDate today = LocalDate.now();
 		

@@ -26,7 +26,6 @@ public class PersonController {
 	PersonDAO personDAO;
 
 	/**
-	 * 
 	 * @return all people.
 	 */
 	@GetMapping("/allPersons")
@@ -35,15 +34,14 @@ public class PersonController {
 	}
 
 	/**
-	 * This url returns the informations of a person : address, age and
+	 * This URL returns the informations of a person : address, age and
 	 * medical-records. If several people have the same name and first-name, they
 	 * will appear in the list.
-	 * 
 	 * @param firstName
 	 * @param lastName
-	 * @return
+	 * @return a person : address, age and medical-records.
 	 */
-	@GetMapping("/personInfos")
+	@GetMapping("/personInfo")
 	public List<PersonInfos> getPersonWithInfos(
 			@RequestParam(value = "firstName", required = true) String firstName,
 			@RequestParam(value = "lastName", required = true) String lastName) {
@@ -54,9 +52,7 @@ public class PersonController {
 	/**
 	 * A person is composed by a firstName, lastName, address, city, zip, phone,
 	 * email.
-	 * 
 	 * @param person
-	 * @return
 	 */
 	@PostMapping("/person")
 	public ResponseEntity<Void> addPerson(@RequestBody Person person) {
@@ -77,9 +73,7 @@ public class PersonController {
 
 	/**
 	 * This method update a person, change an address, city, zip, phone, email.
-	 * 
 	 * @param person
-	 * @return
 	 */
 	@PutMapping("/person")
 	public ResponseEntity<Void> updatePerson(@RequestBody Person person) {
@@ -89,9 +83,7 @@ public class PersonController {
 
 	/**
 	 * This method removes a person from the list of persons.
-	 * 
 	 * @param person
-	 * @return
 	 */
 	@DeleteMapping("/person")
 	public ResponseEntity<Void> removePerson(@RequestBody Person person) {

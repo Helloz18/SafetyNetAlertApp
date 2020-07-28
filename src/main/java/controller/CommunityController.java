@@ -16,7 +16,7 @@ public class CommunityController {
 	InfosDAO infosDAO;
 	
 	/**
-	 * This url returns a list of Email of the persons living in a city.
+	 * This URL returns a list of Email of the persons living in a city.
 	 * If several persons have the same Email, the list will show this Email only once.
 	 * @param city
 	 * @return a list of String "email"

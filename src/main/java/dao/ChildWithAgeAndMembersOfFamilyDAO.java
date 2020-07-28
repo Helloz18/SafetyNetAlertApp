@@ -21,6 +21,12 @@ public class ChildWithAgeAndMembersOfFamilyDAO {
 	PersonDAO personDAO = new PersonDAO();
 	Utils utils = new Utils();
 	
+	/**
+	 * This method will get all the people living in an address, calculate their age and
+	 * return a list of children with their age and members of family.
+	 * @param address
+	 * @return a list of children with their age and members of family
+	 */
 	public List<ChildWithAgeAndMembersOfFamily> findByAddress(String address) {
 	
 		List<ChildWithAgeAndMembersOfFamily> childrenWithAge = new ArrayList<>();

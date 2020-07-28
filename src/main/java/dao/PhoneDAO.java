@@ -11,6 +11,11 @@ import model.Person;
 @Service
 public class PhoneDAO {
 
+	/**
+	 * This method will list the phoneNumbers of people supervised by a station.
+	 * @param stationNumber
+	 * @return a list of String phoneNumber.
+	 */
 	public List<String> getPhoneForAstationNumber(int stationNumber) {
 		List<Person> persons = Data.getInstance().getPersons();
 		FirestationDAO firestationDAO = new FirestationDAO();
