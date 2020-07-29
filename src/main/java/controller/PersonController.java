@@ -3,6 +3,8 @@ package controller;
 import java.net.URI;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,8 @@ import model.PersonInfos;
 
 @RestController
 public class PersonController {
+	
+	private static Logger LOGGER = LogManager.getLogger(PersonController.class);
 
 	@Autowired
 	PersonDAO personDAO;
@@ -30,6 +34,7 @@ public class PersonController {
 	 */
 	@GetMapping("/allPersons")
 	public List<Person> getPersonWithInfos() {
+		LOGGER.info("The list of people.");
 		return personDAO.findAll();
 	}
 

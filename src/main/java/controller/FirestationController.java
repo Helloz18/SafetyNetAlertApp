@@ -38,7 +38,6 @@ public class FirestationController {
 	
 	private static Logger LOGGER = LogManager.getLogger(FirestationController.class);
 	
-
 	
 	/**
 	 * This URL will return all the addresses with the station-number set to supervise this address.
@@ -48,7 +47,7 @@ public class FirestationController {
 	
 	@GetMapping("/firestations-infos")
 	public List<Firestation> firestations() {
-		LOGGER.info("finrestations-infos");
+		LOGGER.info("firestations-infos");
 		return firestationDAO.findAll();
 
 	}
@@ -72,12 +71,12 @@ public class FirestationController {
 	 */
 	@PostMapping("/firestation")
 	public ResponseEntity<Void> addStreetSuperVisedByAstation(@RequestBody Firestation firestation) {
-	    
+		LOGGER.info("New street supervised by a firestation station : " + firestation); 
 		Firestation streetAndStation = firestationDAO.save(firestation);
 		
 		if (streetAndStation == null)
             return ResponseEntity.noContent().build();
-
+		
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{address}")
@@ -94,6 +93,7 @@ public class FirestationController {
 	 */
 	@PutMapping("/firestation")
 	public ResponseEntity<Void> updateFirestationByAstation(@RequestBody Firestation firestation) {
+		LOGGER.info(firestation + " has been modified.");
 		firestationDAO.update(firestation);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
@@ -104,6 +104,7 @@ public class FirestationController {
 	 */
 	@DeleteMapping("/firestation")
 	public ResponseEntity<Void> removeFirestationByAstation(@RequestBody Firestation firestation) {
+		LOGGER.info("The firestation :" + firestation + " has been deleted.");
 		firestationDAO.delete(firestation);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
@@ -117,8 +118,10 @@ public class FirestationController {
 	@GetMapping("/firestation")
 	public ResponseEntity<PersonsSupervisedByFirestation> findPeopleByStation(
 			@RequestParam(value="stationNumber", required=true) int stationNumber) {
+		LOGGER.info("The list of people supervised by "+ stationNumber + "." );
 		PersonsSupervisedByFirestation peopleForThisStation = dao.findByStationNumber(stationNumber);
 		if (peopleForThisStation == null) {
+			LOGGER.info("The list is empty.");
 			return null;
 		}
 		else return ResponseEntity.ok(peopleForThisStation);
@@ -131,7 +134,9 @@ public class FirestationController {
 	 * @return a list of person with age and medicalrecords.
 	 */
 	@GetMapping("/fire")
-	public List <PersonWithAgeAndMedicalRecords> findPeopleFromAddress(@RequestParam(value="address", required=true) String address){
+	public List <PersonWithAgeAndMedicalRecords> findPeopleFromAddress(
+			@RequestParam(value="address", required=true) String address){
+		LOGGER.info("The list of people, their age and their medicalrecords, living at " + address);
 		return pwamrDAO.findByAddress(address);
 	}
 

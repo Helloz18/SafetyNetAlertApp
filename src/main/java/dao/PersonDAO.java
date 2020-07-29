@@ -3,6 +3,8 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import model.Data;
@@ -14,6 +16,8 @@ import utils.Utils;
 @Service
 public class PersonDAO implements InterfaceDAO<Person>{
 
+	private static Logger LOGGER = LogManager.getLogger(PersonDAO.class);
+	
 	List<Person> persons = Data.getInstance().getPersons();
 	List<Medicalrecord> medicalrecords = Data.getInstance().getMedicalrecords();
 	Utils utils = new Utils();
@@ -31,6 +35,7 @@ public class PersonDAO implements InterfaceDAO<Person>{
 	@Override
 	public Person save(Person person) {
 		persons.add(person);
+		LOGGER.info("add a person.");
 		return person;
 	}
 
@@ -43,6 +48,7 @@ public class PersonDAO implements InterfaceDAO<Person>{
 			if(persons.get(i).getFirstName().equals(person.getFirstName())
 					&& (persons.get(i).getLastName().equals(person.getLastName()))) {
 				persons.set(i, person);
+				LOGGER.info("Person has been modified.");
 				return;
 			}
 		}
@@ -54,6 +60,7 @@ public class PersonDAO implements InterfaceDAO<Person>{
 	 */
 	@Override
 	public void delete(Person person) {
+		LOGGER.info("Person has been removed.");
 		persons.remove(person);
 	}
 
@@ -68,7 +75,7 @@ public class PersonDAO implements InterfaceDAO<Person>{
 			if(person.getAddress().equals(address)) {
 				personsInThisAddress.add(person);				
 			}
-		}
+		}		
 		return personsInThisAddress;
 	}
 
@@ -98,8 +105,14 @@ public class PersonDAO implements InterfaceDAO<Person>{
 					p.setAge(age);
 					p.setMedicalrecords(medicalrecords.get(i));
 					result.add(p);
+					
 				}
 			}
+		}
+		if(result.size() == 0) {
+			LOGGER.error("This person was not found.");
+		} else {
+			LOGGER.info("Infos about "+firstName+" "+lastName);
 		}
 		return result;
 	}

@@ -3,6 +3,8 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import model.Data;
@@ -11,6 +13,7 @@ import model.Person;
 @Service
 public class InfosDAO {
 
+	private static Logger LOGGER = LogManager.getLogger(InfosDAO.class);
 	
 	List<Person> persons = Data.getInstance().getPersons();
 	
@@ -38,7 +41,11 @@ public class InfosDAO {
 					}
 				}
 			}
-		}
+		}if(emails.size() == 0) {
+			LOGGER.error("No email to write to.");
+		} else {
+			LOGGER.info("Emails to write to.");
+		}	
 		return emails;
 		
 	}

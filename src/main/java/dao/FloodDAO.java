@@ -5,12 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import model.PersonWithAgeAndMedicalRecords;
 
 @Service
 public class FloodDAO {
+	
+	private static Logger LOGGER = LogManager.getLogger(FloodDAO.class);
 	
 	FirestationDAO firestationDAO = new FirestationDAO();
 	PersonWithAgeAndMedicalRecordsDAO personWithAgeAndMedicalRecordsDAO = new PersonWithAgeAndMedicalRecordsDAO();
@@ -43,10 +47,11 @@ public class FloodDAO {
 				}
 			}
 			}else {
+				LOGGER.info("Nothing found.");
 				return null;
 			}
 		}
-		
+		LOGGER.info("People living in these addresses.");
 		return result;
 	}
 }

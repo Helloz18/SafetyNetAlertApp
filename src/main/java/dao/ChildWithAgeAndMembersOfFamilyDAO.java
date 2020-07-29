@@ -3,6 +3,8 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import model.ChildWithAgeAndMembersOfFamily;
@@ -14,6 +16,7 @@ import utils.Utils;
 @Service
 public class ChildWithAgeAndMembersOfFamilyDAO {
 
+	private static Logger LOGGER = LogManager.getLogger(ChildWithAgeAndMembersOfFamilyDAO.class);
 	
 	Data data = Data.getInstance();
 	List<Person> persons = data.getPersons();
@@ -55,6 +58,7 @@ public class ChildWithAgeAndMembersOfFamilyDAO {
 				}
 			}
 		}
+		LOGGER.info("The list of Children living in "+address+".");
 		return childrenWithAge;
 
 	}

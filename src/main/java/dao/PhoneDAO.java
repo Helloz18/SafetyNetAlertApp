@@ -3,6 +3,8 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import model.Data;
@@ -11,6 +13,8 @@ import model.Person;
 @Service
 public class PhoneDAO {
 
+	private static Logger LOGGER = LogManager.getLogger(PhoneDAO.class);
+	
 	/**
 	 * This method will list the phoneNumbers of people supervised by a station.
 	 * @param stationNumber
@@ -33,8 +37,10 @@ public class PhoneDAO {
 				}
 			}
 		} else {
+			LOGGER.info("No phoneNumber to call.");
 			return null;
 		}
+		LOGGER.info("The list of phoneNumbers to call.");
 		return phonesNumber;
 
 	}

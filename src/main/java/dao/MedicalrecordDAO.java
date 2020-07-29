@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import model.Data;
@@ -10,6 +12,8 @@ import model.Medicalrecord;
 @Service
 public class MedicalrecordDAO implements InterfaceDAO<Medicalrecord> {
 	
+	private static Logger LOGGER = LogManager.getLogger(MedicalrecordDAO.class);
+		
 	List<Medicalrecord> medicalrecords = Data.getInstance().getMedicalrecords();
 
 	/**
@@ -26,6 +30,7 @@ public class MedicalrecordDAO implements InterfaceDAO<Medicalrecord> {
 	@Override
 	public Medicalrecord save(Medicalrecord medicalrecord) {
 		medicalrecords.add(medicalrecord);	
+		LOGGER.info("add a medicalRecord");
 		return medicalrecord;
 	}
 		
@@ -38,6 +43,7 @@ public class MedicalrecordDAO implements InterfaceDAO<Medicalrecord> {
 			if(medicalrecords.get(i).getFirstName().equals(medicalrecord.getFirstName())
 					&& (medicalrecords.get(i).getLastName().equals(medicalrecord.getLastName()))) {
 				medicalrecords.set(i, medicalrecord);
+				LOGGER.info("medicalRecord has been modified.");
 				return;
 			}
 		}
@@ -48,6 +54,7 @@ public class MedicalrecordDAO implements InterfaceDAO<Medicalrecord> {
 	 */
 	@Override
 	public void delete(Medicalrecord medicalrecord) {
+		LOGGER.info("MedicalRecord has been removed.");
 		medicalrecords.remove(medicalrecord);
 		
 	}

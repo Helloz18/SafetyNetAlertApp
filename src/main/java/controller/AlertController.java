@@ -15,7 +15,7 @@ import model.ChildWithAgeAndMembersOfFamily;
 
 @RestController
 public class AlertController {
-	
+		
 	@Autowired
 	PersonsSupervisedByFirestationDAO dao;
 	@Autowired
@@ -31,7 +31,8 @@ public class AlertController {
 	 * @return a list of chidren.
 	 */
 	@GetMapping("/childAlert")
-	public List<ChildWithAgeAndMembersOfFamily> getChildrenInThisAddress(@RequestParam(value="address", required=true) String address){
+	public List<ChildWithAgeAndMembersOfFamily> getChildrenInThisAddress(
+			@RequestParam(value="address", required=true) String address){
 		return redao.findByAddress(address);
 	}
 	
@@ -43,7 +44,8 @@ public class AlertController {
 	 * @return a list of phoneNumber.
 	 */
 	@GetMapping("/phoneAlert")
-	public List<String> getPeoplePhoneForAstationNumber(@RequestParam(value="firestation", required=true) int stationNumber) {
+	public List<String> getPeoplePhoneForAstationNumber(
+			@RequestParam(value="firestation", required=true) int stationNumber) {
 		return phoneDAO.getPhoneForAstationNumber(stationNumber);				
 	}
 }

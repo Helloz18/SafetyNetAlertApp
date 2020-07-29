@@ -3,6 +3,8 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import model.Data;
@@ -13,6 +15,8 @@ import utils.Utils;
 
 @Service
 public class PersonsSupervisedByFirestationDAO {
+	
+	private static Logger LOGGER = LogManager.getLogger(PersonsSupervisedByFirestationDAO.class);
 
 	Data data = Data.getInstance();
 	List<Person> persons = data.getPersons();
@@ -68,8 +72,10 @@ public class PersonsSupervisedByFirestationDAO {
 			result.setAdults(adults);
 			result.setChildren(children);
 		} else {
+			LOGGER.info("This stationNumber "+stationNumber +" doesn't supervise anyone.");
 			return null;
 		}	
+			LOGGER.info("These people are supervised by the stationNumber "+".");
 			return result;
 	}
 
