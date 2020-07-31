@@ -45,5 +45,11 @@ public class ChildWithAgeAndMembersOfFamily {
 	public void setMemberOfFamily(List<Person> memberOfFamily) {
 		this.memberOfFamily = memberOfFamily;
 	}
+
+	@Override
+	public String toString() {
+		return "ChildWithAgeAndMembersOfFamily [child=" + child + ", age=" + age + ", memberOfFamily=" + memberOfFamily
+				+ "]";
+	}
 		
 }
