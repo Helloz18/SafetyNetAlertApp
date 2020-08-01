@@ -1,17 +1,23 @@
 package controller;
 
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import dao.ChildWithAgeAndMembersOfFamilyDAO;
 import dao.PersonsSupervisedByFirestationDAO;
 import dao.PhoneDAO;
 import model.ChildWithAgeAndMembersOfFamily;
+import model.Firestation;
 
 @RestController
 public class AlertController {
@@ -23,7 +29,6 @@ public class AlertController {
 	@Autowired
 	ChildWithAgeAndMembersOfFamilyDAO redao;
 
-
 	/**
 	 * This URL will return the list of chidren living in an address.
 	 * The list of the rest of the persons living in this address will be set for each child.
@@ -31,11 +36,18 @@ public class AlertController {
 	 * @return a list of chidren.
 	 */
 	@GetMapping("/childAlert")
-	public List<ChildWithAgeAndMembersOfFamily> getChildrenInThisAddress(
+	public ResponseEntity<List<ChildWithAgeAndMembersOfFamily>> getChildrenInThisAddress(
 			@RequestParam(value="address", required=true) String address){
-		return redao.findByAddress(address);
+		
+		List<ChildWithAgeAndMembersOfFamily> children =  redao.findByAddress(address);
+		
+		if (children == null)
+			return ResponseEntity.noContent().build();
+		
+		return ResponseEntity.ok(children);
 	}
 	
+		
 	/**
 	 * This URL will return a list of phoneNumber of people supervised by a stationNumber.
 	 * A stationNumber supervise several addresses. 

@@ -80,6 +80,7 @@
                         <phase>test</phase>
                 	</execution>
                 </executions>
+               
       		</plugin>
       		
 			<plugin>

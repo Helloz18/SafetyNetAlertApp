@@ -8,35 +8,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.client.RestTemplate;
 
-import controller.AlertController;
 import dao.ChildWithAgeAndMembersOfFamilyDAO;
-import dao.FirestationDAO;
 import model.ChildWithAgeAndMembersOfFamily;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(AlertController.class)
-@ExtendWith(MockitoExtension.class)
 class AlertControllerTest {
-	
-	private MockMvc mvc;
-
-    @Mock
-    private ChildWithAgeAndMembersOfFamilyDAO dao;
-    
-    FirestationDAO redao = new FirestationDAO();
-
 	
 	@Test
 	void getAhttpStatusOKforAchildAlert() {
@@ -48,7 +27,7 @@ class AlertControllerTest {
 	}
 	
 	@Test
-	void getAhttpStatusKOforAchildAlert() {
+	void getEmptyListIfAddressUnknown() {
 		RestTemplate restTemplate = new RestTemplate();
 		String URL ="http://localhost:8080/childAlert";
 		ChildWithAgeAndMembersOfFamily[] response = restTemplate.getForObject(URL+"?address=Unknown", ChildWithAgeAndMembersOfFamily[].class);
