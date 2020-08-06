@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 
 @SpringBootApplication
-@ComponentScan(basePackages={"controller","dao"})
+@ComponentScan(basePackages={"com.hfinoux.SafetyNetAlerts.controller","com.hfinoux.SafetyNetAlerts.dao"})
 public class SafetyNetAlertsApplication {
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {

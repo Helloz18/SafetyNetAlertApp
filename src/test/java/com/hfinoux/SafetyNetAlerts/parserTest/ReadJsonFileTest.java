@@ -21,19 +21,23 @@ public class ReadJsonFileTest {
 
 	@Test
 	void getFirstNameFromFile() throws JsonParseException, JsonMappingException, IOException {
+		//GIVEN
 		InputStream is = new FileInputStream(file);
 		ObjectMapper mapper = new ObjectMapper();
+		//WHEN
 		Data data = mapper.readValue(is, Data.class);
-			
+		//THEN
 		assertEquals("John", data.getPersons().get(0).getFirstName());
 	}
 	
 	@Test
 	void getFirestationFromFile() throws JsonParseException, JsonMappingException, IOException {
+		//GIVEN
 		InputStream is = new FileInputStream(file);
 		ObjectMapper mapper = new ObjectMapper();
+		//WHEN
 		Data data = mapper.readValue(is, Data.class);
-		
+		//THEN
 		assertEquals(3, data.getFirestations().get(0).getStation());
 	}
  

@@ -1,79 +1,75 @@
 package com.hfinoux.SafetyNetAlerts.controllerTest;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
-import com.hfinoux.SafetyNetAlerts.dao.ChildWithAgeAndMembersOfFamilyDAO;
-import com.hfinoux.SafetyNetAlerts.model.ChildWithAgeAndMembersOfFamily;
+import com.hfinoux.SafetyNetAlerts.controller.AlertController;
 
+
+@WebMvcTest(AlertController.class)
+@AutoConfigureMockMvc
 class AlertControllerTest {
 	
-	@Test
-	void getAhttpStatusOKforAchildAlert() {
-		RestTemplate restTemplate = new RestTemplate();
-		String URL ="http://localhost:8080/childAlert";
-		ResponseEntity<String> response
-		  = restTemplate.getForEntity(URL + "?address=1509%20Culver%20St", String.class);
-		assertEquals(response.getStatusCode(), HttpStatus.OK);
-	}
 	
-	@Test
-	void getAhttpStatusKOforAchildAlert() {
-		RestTemplate restTemplate = new RestTemplate();
-		String URL ="http://localhost:8080/childAlert";
-		ChildWithAgeAndMembersOfFamily[] response = restTemplate.getForObject(URL+"?address=Unknown", ChildWithAgeAndMembersOfFamily[].class);
-		List<ChildWithAgeAndMembersOfFamily> children = new ArrayList<ChildWithAgeAndMembersOfFamily>(Arrays.asList(response));
-		assertEquals(children.size(), 0);
-	}
+	@Autowired
+	private MockMvc mockMvc;
 	
-	@Test
-	void getAchildForAnAddress() {
-		//GIVEN
-		RestTemplate restTemplate = new RestTemplate();
-		String URL ="http://localhost:8080/childAlert";
-		//WHEN
-		ChildWithAgeAndMembersOfFamily[] child = restTemplate.getForObject(URL+"?address=1509 Culver St", ChildWithAgeAndMembersOfFamily[].class);
-		List<ChildWithAgeAndMembersOfFamily> children = new ArrayList<ChildWithAgeAndMembersOfFamily>(Arrays.asList(child));
-		//THEN
-		assertEquals(children.get(0).getChild().getFirstName(), "Tenley");
-			
-	}
-
-	@Test
-	void getChildrenForAnAddress() {
-		//GIVEN
-		RestTemplate restTemplate = new RestTemplate();
-		String URL ="http://localhost:8080/childAlert";
-		String address = "1509 Culver St";
-		//WHEN
-		ChildWithAgeAndMembersOfFamily[] child = restTemplate.getForObject(URL+"?address="+address, ChildWithAgeAndMembersOfFamily[].class);
-		List<ChildWithAgeAndMembersOfFamily> children = new ArrayList<ChildWithAgeAndMembersOfFamily>(Arrays.asList(child));
-		ChildWithAgeAndMembersOfFamilyDAO dao = new ChildWithAgeAndMembersOfFamilyDAO();
-		dao.findByAddress(address);
-		//THEN
-		assertEquals(children.get(0).getChild().getFirstName(), dao.findByAddress(address).get(0).getChild().getFirstName());
-			
-	}
 	
-	@Test
-	void getForAnAddress() {
-		//GIVEN
-		String address = "1509 Culver St";
-		//WHEN
-		ChildWithAgeAndMembersOfFamilyDAO dao = new ChildWithAgeAndMembersOfFamilyDAO();
-		dao.findByAddress(address);
-		//THEN
-		assertNotNull(dao.findByAddress(address));
-			
-	}
+    @Test
+    void getAresponseOkForChildrenFoundInAnAddress() throws Exception {
+    	//GIVEN
+    	String address = "1509 Culver St";
+    	//WHEN, THEN
+        mockMvc.perform(get("/childAlert?address=" + address)).andExpect(status().isOk()).andReturn();
+        }
+    
+    @Test
+    void getAnEmptyArrayForAddressUnknown() throws Exception {
+    	//GIVEN
+    	String address = "unknown";
+    	//WHEN
+        MvcResult response = mockMvc.perform(get("/childAlert?address=" + address)).andExpect(status().isOk()).andReturn();
+        //THEN
+        assertEquals(response.getResponse().getContentAsString(), "[]");
+    }
+    
+    @Test
+    void getAnEmptyArrayForAddressEmpty() throws Exception {
+    	//GIVEN
+    	String address = "";
+    	//WHEN
+        MvcResult response = mockMvc.perform(get("/childAlert?address=" + address)).andExpect(status().isOk()).andReturn();
+        //THEN
+        assertEquals(response.getResponse().getContentAsString(), "[]");
+    }
 	
+    @Test
+    void getListOfPhoneNumberForAstationNumber() throws Exception {
+    	//GIVEN
+    	int stationNumber = 1;
+    	//WHEN
+        MvcResult response = mockMvc.perform(get("/phoneAlert?firestation="+stationNumber)).andExpect(status().isOk()).andReturn();
+        //THEN
+        assertEquals(response.getResponse().getContentAsString(), "[\"841-874-6512\",\"841-874-8547\",\"841-874-7462\",\"841-874-7784\"]");
+    }
+    
+    @Test
+    void getEmptyListForAstationNumberNotFound() throws Exception {
+    	//GIVEN
+    	int stationNumber = 10;
+    	//WHEN
+        MvcResult response = mockMvc.perform(get("/phoneAlert?firestation="+stationNumber)).andExpect(status().isOk()).andReturn();
+        //THEN
+        assertEquals(response.getResponse().getContentAsString(), "");
+    }
 	  	
 }
