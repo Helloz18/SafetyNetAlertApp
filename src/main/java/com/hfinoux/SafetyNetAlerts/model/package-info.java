@@ -1,0 +1,1 @@
+package com.hfinoux.SafetyNetAlerts.model;
