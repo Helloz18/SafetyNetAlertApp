@@ -5,12 +5,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hfinoux.SafetyNetAlerts.dao.InfosDAO;
 
+@SpringBootTest
 class InfosDAOTest {
 
-	InfosDAO infosDAO = new InfosDAO();
+	@Autowired
+	InfosDAO infosDAO;
 	
 	@Test
 	void getsTheFirstEmailForTheCity() {

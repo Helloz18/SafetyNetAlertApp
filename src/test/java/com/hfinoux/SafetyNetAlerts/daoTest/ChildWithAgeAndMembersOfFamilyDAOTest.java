@@ -5,13 +5,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hfinoux.SafetyNetAlerts.dao.ChildWithAgeAndMembersOfFamilyDAO;
 import com.hfinoux.SafetyNetAlerts.model.ChildWithAgeAndMembersOfFamily;
 
+
+@SpringBootTest
 class ChildWithAgeAndMembersOfFamilyDAOTest {
 
-	ChildWithAgeAndMembersOfFamilyDAO cWaAmOfDAO = new ChildWithAgeAndMembersOfFamilyDAO();
+	@Autowired
+	ChildWithAgeAndMembersOfFamilyDAO cWaAmOfDAO;
 	
 	@Test
 	void getTheFirstChildWithHisAgeAndTheMembersOfHisFamilyFromAnAddress() {

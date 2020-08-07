@@ -7,13 +7,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hfinoux.SafetyNetAlerts.dao.FloodDAO;
 import com.hfinoux.SafetyNetAlerts.model.PersonWithAgeAndMedicalRecords;
 
+@SpringBootTest
 class FloodDAOTest {
 
-	FloodDAO floodDAO = new FloodDAO();
+	@Autowired
+	FloodDAO floodDAO;
 	
 	@Test
 	void getTheFirstPersonForTheFirstAddressForAstationNumber() {

@@ -6,19 +6,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hfinoux.SafetyNetAlerts.dao.FirestationDAO;
 import com.hfinoux.SafetyNetAlerts.model.Data;
 import com.hfinoux.SafetyNetAlerts.model.Firestation;
-import com.hfinoux.SafetyNetAlerts.model.PersonsSupervisedByFirestation;
-import com.hfinoux.SafetyNetAlerts.parser.DataReader;
 
+@SpringBootTest
 public class FirestationDAOTest {
 
-	FirestationDAO firestationDAO = new FirestationDAO();
+	@Autowired
+	FirestationDAO firestationDAO;
 	
 	List<Firestation> firestations = Data.getInstance().getFirestations();
 	

@@ -12,9 +12,9 @@ import com.hfinoux.SafetyNetAlerts.model.Firestation;
 
 
 @Repository
-public class FirestationDAO implements InterfaceDAO<Firestation> {
+public class FirestationDAOImpl implements FirestationDAO {
 
-	private static Logger LOGGER = LogManager.getLogger(FirestationDAO.class);
+	private static Logger LOGGER = LogManager.getLogger(FirestationDAOImpl.class);
 	List<Firestation> firestations = Data.getInstance().getFirestations();
 	
 	/**

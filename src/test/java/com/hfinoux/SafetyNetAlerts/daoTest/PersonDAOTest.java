@@ -5,15 +5,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hfinoux.SafetyNetAlerts.dao.PersonDAO;
 import com.hfinoux.SafetyNetAlerts.model.Data;
 import com.hfinoux.SafetyNetAlerts.model.Person;
-import com.hfinoux.SafetyNetAlerts.model.PersonInfos;
 
+@SpringBootTest
 class PersonDAOTest {
 
-PersonDAO personDAO = new PersonDAO();
+	@Autowired
+	PersonDAO personDAO;
 	
 	List<Person> persons = Data.getInstance().getPersons();
 	

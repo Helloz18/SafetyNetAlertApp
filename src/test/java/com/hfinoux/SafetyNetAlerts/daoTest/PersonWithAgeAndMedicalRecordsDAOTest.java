@@ -5,13 +5,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hfinoux.SafetyNetAlerts.dao.PersonWithAgeAndMedicalRecordsDAO;
 import com.hfinoux.SafetyNetAlerts.model.PersonWithAgeAndMedicalRecords;
 
+@SpringBootTest
 class PersonWithAgeAndMedicalRecordsDAOTest {
 	
-	PersonWithAgeAndMedicalRecordsDAO pWaAmRDAO = new PersonWithAgeAndMedicalRecordsDAO();
+	@Autowired
+	PersonWithAgeAndMedicalRecordsDAO pWaAmRDAO;
 
 	@Test
 	void getTheFirstMedicationOfTheFirstPersonFromAnAddress() {

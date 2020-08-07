@@ -2,7 +2,6 @@ package com.hfinoux.SafetyNetAlerts.controllerTest;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 import org.junit.jupiter.api.Test;

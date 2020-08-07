@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.hfinoux.SafetyNetAlerts.model.ChildWithAgeAndMembersOfFamily;
 import com.hfinoux.SafetyNetAlerts.model.Data;
@@ -13,15 +14,16 @@ import com.hfinoux.SafetyNetAlerts.model.Medicalrecord;
 import com.hfinoux.SafetyNetAlerts.model.Person;
 import com.hfinoux.SafetyNetAlerts.utils.Utils;
 
-@Service
-public class ChildWithAgeAndMembersOfFamilyDAO {
+@Repository
+public class ChildWithAgeAndMembersOfFamilyDAOImpl implements ChildWithAgeAndMembersOfFamilyDAO {
 
-	private static Logger LOGGER = LogManager.getLogger(ChildWithAgeAndMembersOfFamilyDAO.class);
+	private static Logger LOGGER = LogManager.getLogger(ChildWithAgeAndMembersOfFamilyDAOImpl.class);
 	
 	Data data = Data.getInstance();
 	List<Person> persons = data.getPersons();
 	List<Medicalrecord> medicalrecords = data.getMedicalrecords();
-	PersonDAO personDAO = new PersonDAO();
+	@Autowired
+	PersonDAO personDAO;
 	Utils utils = new Utils();
 	
 	/**

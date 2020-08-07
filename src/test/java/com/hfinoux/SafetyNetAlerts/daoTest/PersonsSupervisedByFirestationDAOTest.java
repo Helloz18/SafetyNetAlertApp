@@ -3,13 +3,17 @@ package com.hfinoux.SafetyNetAlerts.daoTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hfinoux.SafetyNetAlerts.dao.PersonsSupervisedByFirestationDAO;
 import com.hfinoux.SafetyNetAlerts.model.PersonsSupervisedByFirestation;
 
+@SpringBootTest
 class PersonsSupervisedByFirestationDAOTest {
 	
-	PersonsSupervisedByFirestationDAO dao = new PersonsSupervisedByFirestationDAO();
+	@Autowired
+	PersonsSupervisedByFirestationDAO dao;
 
 	@Test
 	void getTheNumberOfChildrenForAfirestation() {
