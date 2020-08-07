@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Person.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SafetyNetAlerts</a> &gt; <a href="index.source.html" class="el_package">com.hfinoux.SafetyNetAlerts.model</a> &gt; <span class="el_source">Person.java</span></div><h1>Person.java</h1><pre class="source lang-java linenums">package com.hfinoux.SafetyNetAlerts.model;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Person {
+
+	public String firstName;
+	public String lastName;
+	public String address;
+	public String city;
+	public String zip;
+	public String phone;
+	public String email;
+	
+	
+	
+	public Person(
+			String firstName, String lastName, String address, String city, String zip, String phone,
+			String email) {
+<span class="nc" id="L21">		super();</span>
+<span class="nc" id="L22">		this.firstName = firstName;</span>
+<span class="nc" id="L23">		this.lastName = lastName;</span>
+<span class="nc" id="L24">		this.address = address;</span>
+<span class="nc" id="L25">		this.city = city;</span>
+<span class="nc" id="L26">		this.zip = zip;</span>
+<span class="nc" id="L27">		this.phone = phone;</span>
+<span class="nc" id="L28">		this.email = email;</span>
+<span class="nc" id="L29">	}</span>
+	
+	public Person() {
+<span class="fc" id="L32">		super();</span>
+<span class="fc" id="L33">	}</span>
+
+	public String getFirstName() {
+<span class="fc" id="L36">		return firstName;</span>
+	}
+	public void setFirstName(String firstName) {
+<span class="fc" id="L39">		this.firstName = firstName;</span>
+<span class="fc" id="L40">	}</span>
+	public String getLastName() {
+<span class="fc" id="L42">		return lastName;</span>
+	}
+	public void setLastName(String lastName) {
+<span class="fc" id="L45">		this.lastName = lastName;</span>
+<span class="fc" id="L46">	}</span>
+	public String getAddress() {
+<span class="fc" id="L48">		return address;</span>
+	}
+	public void setAddress(String address) {
+<span class="fc" id="L51">		this.address = address;</span>
+<span class="fc" id="L52">	}</span>
+	public String getCity() {
+<span class="fc" id="L54">		return city;</span>
+	}
+	public void setCity(String city) {
+<span class="fc" id="L57">		this.city = city;</span>
+<span class="fc" id="L58">	}</span>
+	public String getZip() {
+<span class="fc" id="L60">		return zip;</span>
+	}
+	public void setZip(String zip) {
+<span class="fc" id="L63">		this.zip = zip;</span>
+<span class="fc" id="L64">	}</span>
+	public String getPhone() {
+<span class="fc" id="L66">		return phone;</span>
+	}
+	public void setPhone(String phone) {
+<span class="fc" id="L69">		this.phone = phone;</span>
+<span class="fc" id="L70">	}</span>
+	public String getEmail() {
+<span class="fc" id="L72">		return email;</span>
+	}
+	public void setEmail(String email) {
+<span class="fc" id="L75">		this.email = email;</span>
+<span class="fc" id="L76">	}</span>
+
+	@Override
+	public String toString() {
+<span class="nc" id="L80">		return &quot;Person [firstName=&quot; + firstName + &quot;, lastName=&quot; + lastName + &quot;, address=&quot; + address + &quot;, city=&quot; + city</span>
+				+ &quot;, zip=&quot; + zip + &quot;, phone=&quot; + phone + &quot;, email=&quot; + email + &quot;]&quot;;
+	}
+
+	@Override
+	public int hashCode() {
+<span class="nc" id="L86">		final int prime = 31;</span>
+<span class="nc" id="L87">		int result = 1;</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">		result = prime * result + ((address == null) ? 0 : address.hashCode());</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">		result = prime * result + ((city == null) ? 0 : city.hashCode());</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">		result = prime * result + ((email == null) ? 0 : email.hashCode());</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">		result = prime * result + ((phone == null) ? 0 : phone.hashCode());</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">		result = prime * result + ((zip == null) ? 0 : zip.hashCode());</span>
+<span class="nc" id="L95">		return result;</span>
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">		if (this == obj)</span>
+<span class="nc" id="L101">			return true;</span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">		if (obj == null)</span>
+<span class="nc" id="L103">			return false;</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">		if (getClass() != obj.getClass())</span>
+<span class="nc" id="L105">			return false;</span>
+<span class="fc" id="L106">		Person other = (Person) obj;</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">		if (address == null) {</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">			if (other.address != null)</span>
+<span class="fc" id="L109">				return false;</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">		} else if (!address.equals(other.address))</span>
+<span class="nc" id="L111">			return false;</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">		if (city == null) {</span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">			if (other.city != null)</span>
+<span class="fc" id="L114">				return false;</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">		} else if (!city.equals(other.city))</span>
+<span class="nc" id="L116">			return false;</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">		if (email == null) {</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">			if (other.email != null)</span>
+<span class="nc" id="L119">				return false;</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">		} else if (!email.equals(other.email))</span>
+<span class="nc" id="L121">			return false;</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">		if (firstName == null) {</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">			if (other.firstName != null)</span>
+<span class="nc" id="L124">				return false;</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">		} else if (!firstName.equals(other.firstName))</span>
+<span class="nc" id="L126">			return false;</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">		if (lastName == null) {</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">			if (other.lastName != null)</span>
+<span class="nc" id="L129">				return false;</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">		} else if (!lastName.equals(other.lastName))</span>
+<span class="nc" id="L131">			return false;</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">		if (phone == null) {</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">			if (other.phone != null)</span>
+<span class="nc" id="L134">				return false;</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">		} else if (!phone.equals(other.phone))</span>
+<span class="nc" id="L136">			return false;</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">		if (zip == null) {</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">			if (other.zip != null)</span>
+<span class="nc" id="L139">				return false;</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">		} else if (!zip.equals(other.zip))</span>
+<span class="nc" id="L141">			return false;</span>
+<span class="nc" id="L142">		return true;</span>
+	}
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

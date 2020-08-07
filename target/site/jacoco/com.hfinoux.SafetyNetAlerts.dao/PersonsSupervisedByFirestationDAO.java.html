@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PersonsSupervisedByFirestationDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SafetyNetAlerts</a> &gt; <a href="index.source.html" class="el_package">com.hfinoux.SafetyNetAlerts.dao</a> &gt; <span class="el_source">PersonsSupervisedByFirestationDAO.java</span></div><h1>PersonsSupervisedByFirestationDAO.java</h1><pre class="source lang-java linenums">package com.hfinoux.SafetyNetAlerts.dao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
+
+import com.hfinoux.SafetyNetAlerts.model.Data;
+import com.hfinoux.SafetyNetAlerts.model.Medicalrecord;
+import com.hfinoux.SafetyNetAlerts.model.Person;
+import com.hfinoux.SafetyNetAlerts.model.PersonsSupervisedByFirestation;
+import com.hfinoux.SafetyNetAlerts.utils.Utils;
+
+@Service
+<span class="fc" id="L17">public class PersonsSupervisedByFirestationDAO {</span>
+	
+<span class="fc" id="L19">	private static Logger LOGGER = LogManager.getLogger(PersonsSupervisedByFirestationDAO.class);</span>
+
+<span class="fc" id="L21">	Data data = Data.getInstance();</span>
+<span class="fc" id="L22">	List&lt;Person&gt; persons = data.getPersons();</span>
+<span class="fc" id="L23">	List&lt;Medicalrecord&gt; medicalrecords = data.getMedicalrecords();</span>
+
+<span class="fc" id="L25">	Utils utils = new Utils();</span>
+
+<span class="fc" id="L27">	FirestationDAO firestationDAO = new FirestationDAO();</span>
+
+	/**
+	 * This method will return a list of people supervised by a station and the number of adults and children.
+	 * @param stationNumber
+	 * @return a PersonsSupervisedByFirestation
+	 */
+	public PersonsSupervisedByFirestation findByStationNumber(int stationNumber) {
+
+<span class="fc" id="L36">		PersonsSupervisedByFirestation result = new PersonsSupervisedByFirestation();</span>
+
+<span class="fc" id="L38">		List&lt;String&gt; streets = firestationDAO.findById(stationNumber);</span>
+<span class="fc" id="L39">		List&lt;Person&gt; peopleSearched = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L40">		int adults = 0;</span>
+<span class="fc" id="L41">		int children = 0;</span>
+
+<span class="fc bfc" id="L43" title="All 2 branches covered.">		if (streets != null) {</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">			for (String street : streets) { // pour chaque rue supervisée par la station</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">				for (int i = 0; i &lt; persons.size(); i++) { // parcours la liste de toutes les personnes</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">					if (persons.get(i).getAddress().equals(street)) { // pour trouver celles pour lesquelles la rue est</span>
+																		// supervisée
+<span class="fc" id="L48">						peopleSearched.add(persons.get(i)); // ajouter chaque personne à la liste</span>
+					}
+				}
+			}
+
+<span class="fc bfc" id="L53" title="All 2 branches covered.">			for (Person person : peopleSearched) { // pour les personnes trouvées</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">				for (int j = 0; j &lt; medicalrecords.size(); j++) { // parcours la liste des medicalrecords</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">					if (person.getFirstName().equals(medicalrecords.get(j).getFirstName())</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">							&amp;&amp; (person.getLastName().equals(medicalrecords.get(j).getLastName()))) // si même prénom,</span>
+																									// même nom
+					{
+<span class="fc" id="L59">						String birthdate = medicalrecords.get(j).getBirthdate(); // récupère la date de naissance pour</span>
+																					// calculer l'âge
+<span class="fc" id="L61">						int age = utils.calculateAge(birthdate);</span>
+
+<span class="fc bfc" id="L63" title="All 2 branches covered.">						if (age &gt; 18) {</span>
+<span class="fc" id="L64">							adults++;</span>
+<span class="fc" id="L65">						} else {</span>
+<span class="fc" id="L66">							children++;</span>
+						}
+					}
+				}
+			}
+<span class="fc" id="L71">			result.setPersons(peopleSearched);</span>
+<span class="fc" id="L72">			result.setAdults(adults);</span>
+<span class="fc" id="L73">			result.setChildren(children);</span>
+<span class="fc" id="L74">		} else {</span>
+<span class="fc" id="L75">			LOGGER.info(&quot;This stationNumber &quot;+stationNumber +&quot; doesn't supervise anyone.&quot;);</span>
+<span class="fc" id="L76">			return null;</span>
+		}	
+<span class="fc" id="L78">			LOGGER.info(&quot;These people are supervised by the stationNumber &quot;+&quot;.&quot;);</span>
+<span class="fc" id="L79">			return result;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PhoneDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SafetyNetAlerts</a> &gt; <a href="index.source.html" class="el_package">com.hfinoux.SafetyNetAlerts.dao</a> &gt; <span class="el_source">PhoneDAO.java</span></div><h1>PhoneDAO.java</h1><pre class="source lang-java linenums">package com.hfinoux.SafetyNetAlerts.dao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
+
+import com.hfinoux.SafetyNetAlerts.model.Data;
+import com.hfinoux.SafetyNetAlerts.model.Person;
+
+@Service
+<span class="fc" id="L14">public class PhoneDAO {</span>
+
+<span class="fc" id="L16">	private static Logger LOGGER = LogManager.getLogger(PhoneDAO.class);</span>
+	
+	/**
+	 * This method will list the phoneNumbers of people supervised by a station.
+	 * @param stationNumber
+	 * @return a list of String phoneNumber.
+	 */
+	public List&lt;String&gt; getPhoneForAstationNumber(int stationNumber) {
+<span class="fc" id="L24">		List&lt;Person&gt; persons = Data.getInstance().getPersons();</span>
+<span class="fc" id="L25">		FirestationDAO firestationDAO = new FirestationDAO();</span>
+<span class="fc" id="L26">		List&lt;String&gt; streets = firestationDAO.findById(stationNumber);</span>
+<span class="fc" id="L27">		List&lt;String&gt; phonesNumber = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L29" title="All 2 branches covered.">		if (streets != null) {</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">			for (String street : streets) {</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">				for (Person person : persons) {</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">					if (person.getAddress().equals(street)) {</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">						if (!phonesNumber.contains(person.getPhone())) {</span>
+<span class="fc" id="L34">							phonesNumber.add(person.getPhone());</span>
+						}
+					}
+				}
+			}
+<span class="fc" id="L39">		} else {</span>
+<span class="fc" id="L40">			LOGGER.info(&quot;No phoneNumber to call.&quot;);</span>
+<span class="fc" id="L41">			return null;</span>
+		}
+<span class="fc" id="L43">		LOGGER.info(&quot;The list of phoneNumbers to call.&quot;);</span>
+<span class="fc" id="L44">		return phonesNumber;</span>
+
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PersonWithAllInfos.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SafetyNetAlerts</a> &gt; <a href="index.source.html" class="el_package">com.hfinoux.SafetyNetAlerts.model</a> &gt; <span class="el_source">PersonWithAllInfos.java</span></div><h1>PersonWithAllInfos.java</h1><pre class="source lang-java linenums">package com.hfinoux.SafetyNetAlerts.model;
+
+public class PersonWithAllInfos {
+
+	int stationNumber;
+	Person person;
+	int age;
+	Medicalrecord medicalrecords;
+	
+	
+	public PersonWithAllInfos() {
+<span class="fc" id="L12">		super();</span>
+<span class="fc" id="L13">	}</span>
+
+
+	public PersonWithAllInfos(int stationNumber, Person person, int age, Medicalrecord medicalrecords) {
+<span class="nc" id="L17">		super();</span>
+<span class="nc" id="L18">		this.stationNumber = stationNumber;</span>
+<span class="nc" id="L19">		this.person = person;</span>
+<span class="nc" id="L20">		this.age = age;</span>
+<span class="nc" id="L21">		this.medicalrecords = medicalrecords;</span>
+<span class="nc" id="L22">	}</span>
+
+
+	public int getStationNumber() {
+<span class="fc" id="L26">		return stationNumber;</span>
+	}
+
+
+	public void setStationNumber(int stationNumber) {
+<span class="fc" id="L31">		this.stationNumber = stationNumber;</span>
+<span class="fc" id="L32">	}</span>
+
+
+	public Person getPerson() {
+<span class="fc" id="L36">		return person;</span>
+	}
+
+
+	public void setPerson(Person person) {
+<span class="fc" id="L41">		this.person = person;</span>
+<span class="fc" id="L42">	}</span>
+
+
+	public int getAge() {
+<span class="fc" id="L46">		return age;</span>
+	}
+
+
+	public void setAge(int age) {
+<span class="fc" id="L51">		this.age = age;</span>
+<span class="fc" id="L52">	}</span>
+
+
+	public Medicalrecord getMedicalrecords() {
+<span class="fc" id="L56">		return medicalrecords;</span>
+	}
+
+
+	public void setMedicalrecords(Medicalrecord medicalrecords) {
+<span class="fc" id="L61">		this.medicalrecords = medicalrecords;</span>
+<span class="fc" id="L62">	}</span>
+	
+	@Override
+	public int hashCode() {
+<span class="nc" id="L66">		final int prime = 31;</span>
+<span class="nc" id="L67">		int result = 1;</span>
+<span class="nc" id="L68">		result = prime * result + age;</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">		result = prime * result + ((medicalrecords == null) ? 0 : medicalrecords.hashCode());</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">		result = prime * result + ((person == null) ? 0 : person.hashCode());</span>
+<span class="nc" id="L71">		result = prime * result + stationNumber;</span>
+<span class="nc" id="L72">		return result;</span>
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">		if (this == obj)</span>
+<span class="nc" id="L79">			return true;</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">		if (obj == null)</span>
+<span class="nc" id="L81">			return false;</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">		if (getClass() != obj.getClass())</span>
+<span class="nc" id="L83">			return false;</span>
+<span class="fc" id="L84">		PersonWithAllInfos other = (PersonWithAllInfos) obj;</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">		if (age != other.age)</span>
+<span class="fc" id="L86">			return false;</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">		if (medicalrecords == null) {</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">			if (other.medicalrecords != null)</span>
+<span class="nc" id="L89">				return false;</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">		} else if (!medicalrecords.equals(other.medicalrecords))</span>
+<span class="nc" id="L91">			return false;</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">		if (person == null) {</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">			if (other.person != null)</span>
+<span class="nc" id="L94">				return false;</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">		} else if (!person.equals(other.person))</span>
+<span class="nc" id="L96">			return false;</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">		if (stationNumber != other.stationNumber)</span>
+<span class="nc" id="L98">			return false;</span>
+<span class="nc" id="L99">		return true;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

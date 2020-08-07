@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Data.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SafetyNetAlerts</a> &gt; <a href="index.source.html" class="el_package">com.hfinoux.SafetyNetAlerts.model</a> &gt; <span class="el_source">Data.java</span></div><h1>Data.java</h1><pre class="source lang-java linenums">package com.hfinoux.SafetyNetAlerts.model;
+
+import java.util.List;
+
+import com.hfinoux.SafetyNetAlerts.parser.DataReader;
+/**
+ * Data object sets the structure of the file data.json
+ *
+ */
+
+public class Data {
+	
+//Singleton
+	private static Data data;
+
+//Variables	
+	private List &lt;Person&gt; persons;
+	private List &lt;Firestation&gt; firestations;
+	private List &lt;Medicalrecord&gt; medicalrecords;
+		
+	
+//Constructors	
+<span class="fc" id="L23">	public Data() {</span>
+<span class="fc" id="L24">	}	</span>
+	
+<span class="nc" id="L26">	public Data(List&lt;Person&gt; persons, List&lt;Firestation&gt; firestations, List&lt;Medicalrecord&gt; medicalrecords) {</span>
+<span class="nc" id="L27">		this.persons = persons;</span>
+<span class="nc" id="L28">		this.firestations = firestations;</span>
+<span class="nc" id="L29">		this.medicalrecords = medicalrecords;</span>
+<span class="nc" id="L30">	}</span>
+	
+//getters and setters	
+	public List&lt;Person&gt; getPersons() {
+<span class="fc" id="L34">		return persons;</span>
+	}
+	public void setPersons(List&lt;Person&gt; persons) {
+<span class="fc" id="L37">		this.persons = persons;</span>
+<span class="fc" id="L38">	}</span>
+	public List&lt;Firestation&gt; getFirestations() {
+<span class="fc" id="L40">		return firestations;</span>
+	}
+	public void setFirestations(List&lt;Firestation&gt; firestations) {
+<span class="fc" id="L43">		this.firestations = firestations;</span>
+<span class="fc" id="L44">	}</span>
+	public List&lt;Medicalrecord&gt; getMedicalrecords() {
+<span class="fc" id="L46">		return medicalrecords;</span>
+	}
+	public void setMedicalrecords(List&lt;Medicalrecord&gt; medicalrecords) {
+<span class="fc" id="L49">		this.medicalrecords = medicalrecords;</span>
+<span class="fc" id="L50">	}</span>
+	
+
+	@Override
+	public String toString() {
+<span class="nc" id="L55">		return &quot;DataParser [persons=&quot; + persons + &quot;, firestations=&quot; + firestations + &quot;, medicalrecords=&quot;</span>
+				+ medicalrecords + &quot;]&quot;;
+	}
+
+//méthode de lecture
+	public static Data getInstance() {
+<span class="fc" id="L61">	DataReader read = new DataReader();</span>
+<span class="fc" id="L62">	data = read.readData();</span>
+<span class="fc" id="L63">	return data;</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

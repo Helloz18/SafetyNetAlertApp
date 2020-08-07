@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FirestationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SafetyNetAlerts</a> &gt; <a href="index.source.html" class="el_package">com.hfinoux.SafetyNetAlerts.controller</a> &gt; <span class="el_source">FirestationController.java</span></div><h1>FirestationController.java</h1><pre class="source lang-java linenums">package com.hfinoux.SafetyNetAlerts.controller;
+
+
+import java.net.URI;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.hfinoux.SafetyNetAlerts.dao.FirestationDAO;
+import com.hfinoux.SafetyNetAlerts.dao.PersonWithAgeAndMedicalRecordsDAO;
+import com.hfinoux.SafetyNetAlerts.dao.PersonsSupervisedByFirestationDAO;
+import com.hfinoux.SafetyNetAlerts.model.Firestation;
+import com.hfinoux.SafetyNetAlerts.model.PersonWithAgeAndMedicalRecords;
+import com.hfinoux.SafetyNetAlerts.model.PersonsSupervisedByFirestation;
+
+@RestController
+<span class="fc" id="L30">public class FirestationController {</span>
+
+	@Autowired
+	FirestationDAO firestationDAO;
+	@Autowired
+	PersonsSupervisedByFirestationDAO dao;	
+	@Autowired
+	PersonWithAgeAndMedicalRecordsDAO pwamrDAO;
+	
+<span class="fc" id="L39">	private static Logger LOGGER = LogManager.getLogger(FirestationController.class);</span>
+	
+	
+	/**
+	 * This URL will return all the addresses with the station-number set to supervise this address.
+	 * An address can be supervised by several stations.
+	 * @return a list of &quot;adress with station-number&quot;
+	 */
+	
+	@GetMapping(&quot;/firestations-infos&quot;)
+	public List&lt;Firestation&gt; firestations() {
+<span class="fc" id="L50">		LOGGER.info(&quot;firestations-infos&quot;);</span>
+<span class="fc" id="L51">		return firestationDAO.findAll();</span>
+
+	}
+	
+	/**
+	 * This URL returns a list of the different addresses supervised by a station-number.
+	 * @param stationNumber
+	 * @return list of addresses
+	 * @throws Exception 
+	 */
+	@GetMapping(&quot;/firestation/{stationNumber}&quot;)
+	public List&lt;String&gt; findByStation(@PathVariable int stationNumber) {
+<span class="fc" id="L63">	    LOGGER.info(&quot;addresses from the stationNumber &quot;+ stationNumber);</span>
+<span class="fc" id="L64">		return firestationDAO.findById(stationNumber);</span>
+	}
+	
+	/**
+	 * A firestation is composed by an address and an station-number.
+	 * @param firestation
+	 */
+	@PostMapping(&quot;/firestation&quot;)
+	public ResponseEntity&lt;Void&gt; addStreetSuperVisedByAstation(@RequestBody Firestation firestation) {
+<span class="fc" id="L73">		LOGGER.info(&quot;New street supervised by a firestation station : &quot; + firestation); </span>
+<span class="fc" id="L74">		Firestation streetAndStation = firestationDAO.save(firestation);</span>
+		
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">		if (streetAndStation == null)</span>
+<span class="nc" id="L77">            return ResponseEntity.noContent().build();</span>
+		
+<span class="fc" id="L79">        URI location = ServletUriComponentsBuilder</span>
+<span class="fc" id="L80">                .fromCurrentRequest()</span>
+<span class="fc" id="L81">                .path(&quot;/{address}&quot;)</span>
+<span class="fc" id="L82">                .buildAndExpand(streetAndStation.getAddress())</span>
+<span class="fc" id="L83">                .toUri();</span>
+
+<span class="fc" id="L85">        return ResponseEntity.created(location).build();</span>
+        
+    }
+
+	/**
+	 * This method update a firestation, change an address or an id of a firestation.
+	 * @param firestation
+	 */
+	@PutMapping(&quot;/firestation&quot;)
+	public ResponseEntity&lt;Void&gt; updateFirestationByAstation(@RequestBody Firestation firestation) {
+<span class="fc" id="L95">		LOGGER.info(firestation + &quot; has been modified.&quot;);</span>
+<span class="fc" id="L96">		firestationDAO.update(firestation);</span>
+<span class="fc" id="L97">		return new ResponseEntity&lt;Void&gt;(HttpStatus.NO_CONTENT);</span>
+	}
+	
+	/**
+	 * This method removes a firestation from the list of firestations.
+	 * @param firestation
+	 */
+	@DeleteMapping(&quot;/firestation&quot;)
+	public ResponseEntity&lt;Void&gt; removeFirestationByAstation(@RequestBody Firestation firestation) {
+<span class="fc" id="L106">		LOGGER.info(&quot;The firestation :&quot; + firestation + &quot; has been deleted.&quot;);</span>
+<span class="fc" id="L107">		firestationDAO.delete(firestation);</span>
+<span class="fc" id="L108">		return new ResponseEntity&lt;Void&gt;(HttpStatus.NO_CONTENT);</span>
+	}
+	
+	/**
+	 * This URL returns a list of persons supervised by a stationNumber.
+	 * A stationNumber supervise several addresses.
+	 * @param stationNumber
+	 * @return
+	 */
+	@GetMapping(&quot;/firestation&quot;)
+	public ResponseEntity&lt;PersonsSupervisedByFirestation&gt; findPeopleByStation(
+			@RequestParam(value=&quot;stationNumber&quot;, required=true) int stationNumber) {
+<span class="fc" id="L120">		LOGGER.info(&quot;The list of people supervised by &quot;+ stationNumber + &quot;.&quot; );</span>
+<span class="fc" id="L121">		PersonsSupervisedByFirestation peopleForThisStation = dao.findByStationNumber(stationNumber);</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">		if (peopleForThisStation == null) {</span>
+<span class="nc" id="L123">			LOGGER.info(&quot;The list is empty.&quot;);</span>
+<span class="nc" id="L124">			return null;</span>
+		}
+<span class="fc" id="L126">		else return ResponseEntity.ok(peopleForThisStation);</span>
+			
+	}	
+
+	/**
+	 * This URL will returns a list of &quot;personWithAgeAndMedicalRecords&quot; living at this address.
+	 * @param address
+	 * @return a list of person with age and medicalrecords.
+	 */
+	@GetMapping(&quot;/fire&quot;)
+	public List &lt;PersonWithAgeAndMedicalRecords&gt; findPeopleFromAddress(
+			@RequestParam(value=&quot;address&quot;, required=true) String address){
+<span class="fc" id="L138">		LOGGER.info(&quot;The list of people, their age and their medicalrecords, living at &quot; + address);</span>
+<span class="fc" id="L139">		return pwamrDAO.findByAddress(address);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
